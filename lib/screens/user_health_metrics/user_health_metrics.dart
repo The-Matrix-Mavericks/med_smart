@@ -22,7 +22,7 @@ import 'package:flutter_samples/screens/user_health_metrics/utils/widget_utils.d
 import 'package:flutter_samples/screens/user_health_metrics/widget/conainer_box.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/signin_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/on_boarding/signup_view.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_samples/screens/user_health_metrics/calculator.dart'
@@ -929,7 +929,7 @@ class _InputScreenViewState extends State<InputScreen>
                       _signInAnimController?.reverse();
                     },
                   )
-                : SignInView(
+                : SignUpView(
                     closeModal: () {
                       _signInAnimController?.reverse();
                     },

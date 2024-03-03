@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.medsmart.newapp">
    <application
-        android:label="flutter_samples"
+        android:label="MedSmart"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

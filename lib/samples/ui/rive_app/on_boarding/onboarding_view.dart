@@ -7,7 +7,7 @@ import 'package:flutter_samples/constants/loginORsignupIndex.dart';
 import 'package:flutter_samples/samples/ui/rive_app/on_boarding/login_view.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/signin_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/on_boarding/signup_view.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
 
 class OnBoardingView extends StatefulWidget {
@@ -23,7 +23,7 @@ class OnBoardingView extends StatefulWidget {
 class _OnBoardingViewState extends State<OnBoardingView>
     with TickerProviderStateMixin {
   // Animation controller that shows the sign up modal as well as translateY boarding content together
-  AnimationController? _signInAnimController;
+  AnimationController? _signUpAnimController;
 
   // Control touch effect animation for the "Start the Course" button
   late RiveAnimationController _btnController1;
@@ -36,7 +36,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
     super.initState();
 
     // isLogin = false;
-    _signInAnimController = AnimationController(
+    _signUpAnimController = AnimationController(
         duration: const Duration(milliseconds: 350),
         upperBound: 1,
         vsync: this);
@@ -53,21 +53,21 @@ class _OnBoardingViewState extends State<OnBoardingView>
     _btnController1.isActiveChanged.addListener(() {
       if (!_btnController1.isActive) {
         final springAnim = SpringSimulation(springDesc, 0, 1, 0);
-        _signInAnimController?.animateWith(springAnim);
+        _signUpAnimController?.animateWith(springAnim);
       }
     });
 
     _btnController2.isActiveChanged.addListener(() {
       if (!_btnController2.isActive) {
         final springAnim = SpringSimulation(springDesc, 0, 1, 0);
-        _signInAnimController?.animateWith(springAnim);
+        _signUpAnimController?.animateWith(springAnim);
       }
     });
   }
 
   @override
   void dispose() {
-    _signInAnimController?.dispose();
+    _signUpAnimController?.dispose();
     _btnController1.dispose();
     _btnController2.dispose();
     super.dispose();
@@ -95,11 +95,11 @@ class _OnBoardingViewState extends State<OnBoardingView>
           child: const RiveAnimation.asset(app_assets.shapesRiv),
         ),
         AnimatedBuilder(
-          animation: _signInAnimController!,
+          animation: _signUpAnimController!,
           builder: (context, child) {
             return Transform(
                 transform: Matrix4.translationValues(
-                    0, -50 * _signInAnimController!.value, 0),
+                    0, -50 * _signUpAnimController!.value, 0),
                 child: child);
           },
           child: SafeArea(
@@ -268,12 +268,12 @@ class _OnBoardingViewState extends State<OnBoardingView>
         ),
         RepaintBoundary(
           child: AnimatedBuilder(
-            animation: _signInAnimController!,
+            animation: _signUpAnimController!,
             builder: (context, child) {
               return Stack(
                 children: [
                   // Positioned(
-                  //   top: 100 - (_signInAnimController!.value * 200),
+                  //   top: 100 - (_signUpAnimController!.value * 200),
                   //   right: 20,
                   //   child: SafeArea(
                   //     child: CupertinoButton(
@@ -308,7 +308,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
                     child: IgnorePointer(
                       ignoring: true,
                       child: Opacity(
-                        opacity: 0.4 * _signInAnimController!.value,
+                        opacity: 0.4 * _signUpAnimController!.value,
                         child: Container(color: RiveAppTheme.shadow),
                       ),
                     ),
@@ -317,7 +317,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
                     offset: Offset(
                       0,
                       -MediaQuery.of(context).size.height *
-                          (1 - _signInAnimController!.value),
+                          (1 - _signUpAnimController!.value),
                     ),
                     child: child,
                   ),
@@ -327,12 +327,12 @@ class _OnBoardingViewState extends State<OnBoardingView>
             child: loginORsignupIndex == 0
                 ? LogInView(
                     closeModal: () {
-                      _signInAnimController?.reverse();
+                      _signUpAnimController?.reverse();
                     },
                   )
-                : SignInView(
+                : SignUpView(
                     closeModal: () {
-                      _signInAnimController?.reverse();
+                      _signUpAnimController?.reverse();
                     },
                   ),
           ),

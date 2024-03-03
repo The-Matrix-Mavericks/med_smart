@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
+import 'package:flutter_samples/samples/ui/rive_app/on_boarding/forgot.dart';
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
@@ -221,6 +222,16 @@ class _LogInViewState extends State<LogInView> {
                               //         builder: (context) => RiveAppHome()));
                             },
                           ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: TextButton(
+                              onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext contex) =>
+                                          Forgot())),
+                              child: Text("Forgot Password")),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 24.0),

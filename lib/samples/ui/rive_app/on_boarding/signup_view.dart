@@ -1,25 +1,34 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
+import 'package:flutter_samples/samples/ui/rive_app/on_boarding/wrapper.dart';
+import 'package:get/get.dart';
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
 
-class SignInView extends StatefulWidget {
-  const SignInView({Key? key, this.closeModal}) : super(key: key);
+class SignUpView extends StatefulWidget {
+  const SignUpView({Key? key, this.closeModal}) : super(key: key);
 
   final Function? closeModal;
 
   @override
-  State<SignInView> createState() => _SignInViewState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _SignInViewState extends State<SignInView> {
+class _SignUpViewState extends State<SignUpView> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   final _cofirmPassController = TextEditingController();
+
+  signUp() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text, password: _passController.text);
+    Get.offAll(Wrapper());
+  }
 
   late SMITrigger _successAnim;
   late SMITrigger _errorAnim;
@@ -219,7 +228,7 @@ class _SignInViewState extends State<SignInView> {
                                 // Icon(Icons.arrow_forward_rounded),
                                 // SizedBox(width: 4),
                                 Text(
-                                  "Sign In",
+                                  "Sign Up",
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontFamily: "Poppins",
@@ -228,7 +237,7 @@ class _SignInViewState extends State<SignInView> {
                               ],
                             ),
                             onPressed: () {
-                              if (!_isLoading) login();
+                              if (!_isLoading) signUp();
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(

@@ -9,6 +9,7 @@ import 'package:flutter_samples/samples/ui/rive_app/home.dart';
 import 'package:flutter_samples/samples/animations/grid_magnification/grid_magnification.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_samples/screens/splash_screen/splash_screen.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,8 +23,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Samples',
+    return GetMaterialApp(
+      title: 'Med Smart',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
