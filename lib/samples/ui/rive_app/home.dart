@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
@@ -129,6 +130,14 @@ class _RiveAppHomeState extends State<RiveAppHome>
     _onBoardingAnimController?.dispose();
     super.dispose();
   }
+
+// Signing out from the App using this lines of code
+  signout() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+  // Get Access of Firebase
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -365,6 +374,10 @@ class _RiveAppHomeState extends State<RiveAppHome>
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() => signout()),
+        child: Icon(Icons.login_rounded),
       ),
     );
   }

@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407879953219:android:422c48d172db3c11029df6",
+        "mobilesdk_app_id": "1:407879953219:android:ac52efc8a2b514fe029df6",
         "android_client_info": {
-          "package_name": "com.ashu.flutter_samples"
+          "package_name": "com.medsmart.newapp"
         }
       },
       "oauth_client": [],

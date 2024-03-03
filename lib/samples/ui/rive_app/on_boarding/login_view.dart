@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/color.dart';
@@ -19,6 +21,11 @@ class LogInView extends StatefulWidget {
 class _LogInViewState extends State<LogInView> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+
+  signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text, password: _passController.text);
+  }
 
   late SMITrigger _successAnim;
   late SMITrigger _errorAnim;
@@ -169,7 +176,7 @@ class _LogInViewState extends State<LogInView> {
                         TextField(
                           obscureText: true,
                           decoration: authInputStyle(
-                              Icons.lock, "  Re-enter you password"),
+                              Icons.lock, "  Enter your password"),
                           controller: _passController,
                         ),
                         const SizedBox(height: 15),
@@ -207,7 +214,7 @@ class _LogInViewState extends State<LogInView> {
                               ],
                             ),
                             onPressed: () {
-                              if (!_isLoading) login();
+                              if (!_isLoading) signIn();
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
