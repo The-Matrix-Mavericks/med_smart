@@ -7,7 +7,7 @@ import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/constants/loginORsignupIndex.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/login_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/login_view.dart';
 import 'package:flutter_samples/screens/user_health_metrics/bottombar/pacman_slider.dart';
 import 'package:flutter_samples/screens/user_health_metrics/bottombar/transition_dot.dart';
 import 'package:flutter_samples/screens/user_health_metrics/fade_rote.dart';
@@ -22,7 +22,7 @@ import 'package:flutter_samples/screens/user_health_metrics/utils/widget_utils.d
 import 'package:flutter_samples/screens/user_health_metrics/widget/conainer_box.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/signup_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/signup_view.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_samples/screens/user_health_metrics/calculator.dart'

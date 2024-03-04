@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/forgot.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/forgot.dart';
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/service.dart';
 
@@ -59,7 +60,10 @@ class _LogInViewState extends State<LogInView> {
   signIn() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text, password: _passController.text);
-    Helper.saveUserData(true);
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString('email', _emailController.text.toString());
+    sp.setBool('isLogin', true);
+    print("USER LOGIN---->true");
   }
 
   void login() {
@@ -84,8 +88,8 @@ class _LogInViewState extends State<LogInView> {
 
     if (isValid) {
       Future.delayed(const Duration(seconds: 4), () async {
-      signIn();
-      
+        signIn();
+
         widget.closeModal!();
         _emailController.text = "";
         _passController.text = "";

@@ -71,6 +71,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            
             children: List.generate(_icons.length, (index) {
               TabItem icon = _icons[index];
 

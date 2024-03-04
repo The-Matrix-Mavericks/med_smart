@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/color.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/onboarding_view.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/wrapper.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/wrapper.dart';
 import 'package:flutter_samples/screens/intro_screens/intro_items.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

@@ -33,14 +33,15 @@ class _HomeTabViewState extends State<HomeTabView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 8),
                 child: Text(
-                  "Courses",
-                  style: TextStyle(fontSize: 34, fontFamily: "Poppins"),
+                  "Quick Actions",
+                  style: TextStyle(fontSize: 22, fontFamily: "Poppins"),
                 ),
               ),
               SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: _courses
@@ -55,10 +56,10 @@ class _HomeTabViewState extends State<HomeTabView> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                 child: Text(
-                  "Recent",
-                  style: TextStyle(fontSize: 20, fontFamily: "Poppins"),
+                  "Utilities",
+                  style: TextStyle(fontSize: 22, fontFamily: "Poppins"),
                 ),
               ),
               Padding(

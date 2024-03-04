@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/constants/loginORsignupIndex.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/login_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/login_view.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/signup_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/signup_view.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
 
 class OnBoardingView extends StatefulWidget {

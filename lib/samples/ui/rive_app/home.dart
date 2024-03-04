@@ -7,12 +7,13 @@ import 'package:flutter_samples/samples/ui/rive_app/services/service.dart';
 import 'package:flutter_samples/screens/search_doctor/serach_doctor.dart';
 import 'package:flutter_samples/screens/user_health_metrics/inputpage/input_page.dart';
 import 'package:flutter_samples/screens/user_health_metrics/user_health_metrics.dart';
+import 'package:flutter_samples/screens/user_profile/user_profile.dart';
 // import 'package:flutter_samples/screens/gender_height_wieight/user_gender_height_weight.dart';
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'dart:math' as math;
 import 'package:flutter_samples/samples/ui/rive_app/navigation/custom_tab_bar.dart';
 import 'package:flutter_samples/samples/ui/rive_app/navigation/home_tab_view.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/onboarding_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding_view.dart';
 import 'package:flutter_samples/samples/ui/rive_app/navigation/side_menu.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
@@ -42,6 +43,15 @@ class RiveAppHome extends StatefulWidget {
 
 class _RiveAppHomeState extends State<RiveAppHome>
     with TickerProviderStateMixin {
+  String email = '';
+
+  loadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    email = sp.getString('email') ?? '';
+    // age = sp.getString('age') ?? '';
+    setState(() {});
+  }
+
   late AnimationController? _animationController;
   late AnimationController? _onBoardingAnimController;
   late Animation<double> _onBoardingAnim;
@@ -50,13 +60,13 @@ class _RiveAppHomeState extends State<RiveAppHome>
   late SMIBool _menuBtn;
 
   bool _showOnBoarding = false;
-  Widget _tabBody = Container(color: RiveAppTheme.background);
+  Widget _tabBody = Container(color: const Color.fromARGB(255, 255, 255, 255));
   final List<Widget> _screens = [
     const HomeTabView(),
     ChatPage(),
     SearchDoctorPage(),
     AppointmentPage(),
-    // commonTabScene("Search"),
+    UserProfilePage()
   ];
 
   final springDesc = const SpringDescription(
@@ -105,6 +115,7 @@ class _RiveAppHomeState extends State<RiveAppHome>
 
   @override
   void initState() {
+    loadData();
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 200),
       upperBound: 1,
@@ -149,6 +160,7 @@ class _RiveAppHomeState extends State<RiveAppHome>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(toolbarHeight: 10,),
       extendBody: true,
       body: Stack(
         children: [
@@ -209,8 +221,8 @@ class _RiveAppHomeState extends State<RiveAppHome>
               child: MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: Container(
-                  width: 70,
-                  height: 70,
+                  width: 50,
+                  height: 50,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       // borderRadius: BorderRadius.circular(18),
@@ -227,7 +239,7 @@ class _RiveAppHomeState extends State<RiveAppHome>
                     foregroundColor: darkBlue,
                     child: Image.asset(
                       "assets/images/avatar.webp",
-                      height: 60,
+                      height: 40,
                     ),
                   ),
                 ),
@@ -381,10 +393,6 @@ class _RiveAppHomeState extends State<RiveAppHome>
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() => signout()),
-        child: Icon(Icons.login_rounded),
       ),
     );
   }

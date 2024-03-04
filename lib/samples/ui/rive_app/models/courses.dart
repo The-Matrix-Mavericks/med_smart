@@ -17,47 +17,58 @@ class CourseModel {
 
   static List<CourseModel> courses = [
     CourseModel(
-        title: "Animations in SwiftUI",
-        subtitle: "Build and animate an iOS app from scratch",
-        caption: "20 sections - 3 hours",
+        title: "Post Traumatic Stress Disorder",
+        subtitle:
+            "Learn ways to fight PTSD by developing new hobbies with Med Smart",
+        caption: "Know more",
         color: const Color(0xFF7850F0),
         image: app_assets.topic_1),
     CourseModel(
-        title: "Build Quick Apps with SwiftUI",
+        title: "Stress in today's world",
         subtitle:
-            "Apply your Swift and SwiftUI knowledge by building real, quick and various applications from scratch",
-        caption: "47 sections - 11 hours",
+            "Learn ways to handel and chanalize the stress to get a better lifestyle with Med Smart",
+        caption: "Know more",
         color: const Color(0xFF6792FF),
         image: app_assets.topic_2),
     CourseModel(
-        title: "Build a SwiftUI app for iOS 15",
+        title: "Depression \nv/s You",
         subtitle:
-            "Design and code a SwiftUI 3 app with custom layouts, animations and gestures using Xcode 13, SF Symbols 3, Canvas, Concurrency, Searchable and a whole lot more",
-        caption: "21 sections - 4 hours",
+            "Learn ways to overcome depression by keeping the track of you daily life with Med Smart",
+        caption: "Know more",
         color: const Color(0xFF005FE7),
         image: app_assets.topic_1),
   ];
 
   static List<CourseModel> courseSections = [
     CourseModel(
-        title: "State Machine",
-        caption: "Watch video - 15 mins",
+        title: "AI Diagnose",
+        caption: "within 10 mins",
         color: const Color(0xFF9CC5FF),
         image: app_assets.topic_2),
     CourseModel(
-        title: "Animated",
-        caption: "Watch video - 10 mins",
+        title: "Self Assess",
+        caption: "for stress test",
         color: const Color(0xFF6E6AE8),
         image: app_assets.topic_1),
     CourseModel(
-        title: "Tab Bar",
-        caption: "Watch video - 8 mins",
+        title: "MedAI is here",
+        caption: "for assistance",
+        color: const Color(0xFFBBA6FF),
+        image: app_assets.topic_1),
+    CourseModel(
+        title: "Day Planner",
+        caption: "to be productive",
         color: const Color(0xFF005FE7),
         image: app_assets.topic_2),
     CourseModel(
-        title: "Button",
-        caption: "Watch video - 9 mins",
-        color: const Color(0xFFBBA6FF),
+        title: "Day Tracker",
+        caption: "with Med Smart",
+        color: const Color.fromARGB(255, 255, 114, 114)!,
+        image: app_assets.topic_1),
+    CourseModel(
+        title: "Helplines",
+        caption: "for Govt. & NGO's",
+        color: Colors.teal[200]!,
         image: app_assets.topic_1),
   ];
 }

@@ -93,6 +93,7 @@ flutter:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-Regular.ttf
+          weight: 500
         - asset: assets/fonts/Inter-SemiBold.ttf
           weight: 600
     - family: Poppins

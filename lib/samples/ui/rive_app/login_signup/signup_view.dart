@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
-import 'package:flutter_samples/samples/ui/rive_app/on_boarding/wrapper.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/wrapper.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({Key? key, this.closeModal}) : super(key: key);
@@ -28,6 +29,10 @@ class _SignUpViewState extends State<SignUpView> {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text, password: _passController.text);
     Get.offAll(Wrapper());
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString('email', _emailController.text.toString());
+    sp.setBool('isLogin', true);
+    print("USER LOGIN---->true");
   }
 
   late SMITrigger _successAnim;
