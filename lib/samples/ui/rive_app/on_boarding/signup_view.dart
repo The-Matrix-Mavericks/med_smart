@@ -68,7 +68,10 @@ class _SignUpViewState extends State<SignUpView> {
     bool isEmailValid = _emailController.text.trim().isNotEmpty;
     bool isPassValid = _passController.text.trim().isNotEmpty;
     bool isConfirmPassValid = _cofirmPassController.text.trim().isNotEmpty;
-    bool isValid = isEmailValid && isPassValid && isConfirmPassValid;
+    bool isValid = isEmailValid &&
+        isPassValid &&
+        isConfirmPassValid &&
+        _passController.text.trim() == _cofirmPassController.text.trim();
 
     Future.delayed(const Duration(seconds: 1), () {
       isValid ? _successAnim.fire() : _errorAnim.fire();
@@ -83,16 +86,17 @@ class _SignUpViewState extends State<SignUpView> {
 
     if (isValid) {
       Future.delayed(const Duration(seconds: 4), () {
+        signUp();
         widget.closeModal!();
         _emailController.text = "";
         _passController.text = "";
       });
     }
 
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => RiveAppHome()));
-    });
+    // Future.delayed(const Duration(seconds: 5), () {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (context) => RiveAppHome()));
+    // });
   }
 
   @override
@@ -237,7 +241,7 @@ class _SignUpViewState extends State<SignUpView> {
                               ],
                             ),
                             onPressed: () {
-                              if (!_isLoading) signUp();
+                              if (!_isLoading) login();
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(

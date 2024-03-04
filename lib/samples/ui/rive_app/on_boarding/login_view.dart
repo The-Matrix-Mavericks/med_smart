@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,11 +24,6 @@ class LogInView extends StatefulWidget {
 class _LogInViewState extends State<LogInView> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
-
-  signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text, password: _passController.text);
-  }
 
   late SMITrigger _successAnim;
   late SMITrigger _errorAnim;
@@ -57,6 +54,11 @@ class _LogInViewState extends State<LogInView> {
         controller.findInput<bool>("Trigger explosion") as SMITrigger;
   }
 
+  signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text, password: _passController.text);
+  }
+
   void login() {
     setState(() {
       _isLoading = true;
@@ -78,17 +80,18 @@ class _LogInViewState extends State<LogInView> {
     });
 
     if (isValid) {
-      Future.delayed(const Duration(seconds: 4), () {
+      Future.delayed(const Duration(seconds: 4), () async {
+      signIn();
         widget.closeModal!();
         _emailController.text = "";
         _passController.text = "";
       });
     }
 
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => RiveAppHome()));
-    });
+    // Future.delayed(const Duration(seconds: 5), () {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (context) => RiveAppHome()));
+    // });
   }
 
   @override
@@ -215,7 +218,7 @@ class _LogInViewState extends State<LogInView> {
                               ],
                             ),
                             onPressed: () {
-                              if (!_isLoading) signIn();
+                              if (!_isLoading) login();
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
