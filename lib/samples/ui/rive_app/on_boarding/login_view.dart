@@ -12,6 +12,8 @@ import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
 
+import '../services/service.dart';
+
 class LogInView extends StatefulWidget {
   const LogInView({Key? key, this.closeModal}) : super(key: key);
 
@@ -57,6 +59,7 @@ class _LogInViewState extends State<LogInView> {
   signIn() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text, password: _passController.text);
+    Helper.saveUserData(true);
   }
 
   void login() {
@@ -82,6 +85,7 @@ class _LogInViewState extends State<LogInView> {
     if (isValid) {
       Future.delayed(const Duration(seconds: 4), () async {
       signIn();
+      
         widget.closeModal!();
         _emailController.text = "";
         _passController.text = "";

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_samples/constants/constants.dart';
+import 'package:flutter_samples/samples/ui/rive_app/services/service.dart';
+import 'package:flutter_samples/screens/search_doctor/serach_doctor.dart';
 import 'package:flutter_samples/screens/user_health_metrics/inputpage/input_page.dart';
 import 'package:flutter_samples/screens/user_health_metrics/user_health_metrics.dart';
 // import 'package:flutter_samples/screens/gender_height_wieight/user_gender_height_weight.dart';
@@ -14,6 +16,10 @@ import 'package:flutter_samples/samples/ui/rive_app/on_boarding/onboarding_view.
 import 'package:flutter_samples/samples/ui/rive_app/navigation/side_menu.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../screens/appointment/appointment.dart';
+import '../../../screens/chat_page/char_page.dart';
 
 // Common Tab Scene for the tabs other than 1st one, showing only tab name in center
 Widget commonTabScene(String tabName) {
@@ -47,10 +53,10 @@ class _RiveAppHomeState extends State<RiveAppHome>
   Widget _tabBody = Container(color: RiveAppTheme.background);
   final List<Widget> _screens = [
     const HomeTabView(),
-    commonTabScene("Search"),
-    commonTabScene("Timer"),
-    commonTabScene("Bell"),
-    commonTabScene("User"),
+    ChatPage(),
+    SearchDoctorPage(),
+    AppointmentPage(),
+    // commonTabScene("Search"),
   ];
 
   final springDesc = const SpringDescription(
@@ -134,6 +140,7 @@ class _RiveAppHomeState extends State<RiveAppHome>
 // Signing out from the App using this lines of code
   signout() async {
     await FirebaseAuth.instance.signOut();
+    Helper.saveUserData(false);
   }
 
   // Get Access of Firebase
