@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_samples/samples/ui/rive_app/components/menu_row.dart';
 import 'package:flutter_samples/samples/ui/rive_app/models/menu_item.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -14,6 +16,16 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
+  String? userEmail;
+  @override
+  void initState() {
+    print("jumping  --------");
+    String? currentUser = FirebaseAuth.instance.currentUser?.email;
+    userEmail = currentUser;
+    print(userEmail);
+    super.initState();
+  }
+
   final List<MenuItemModel> _browseMenuIcons = MenuItemModel.menuItems;
   final List<MenuItemModel> _historyMenuIcons = MenuItemModel.menuItems2;
   final List<MenuItemModel> _themeMenuIcon = MenuItemModel.menuItems3;
@@ -69,12 +81,15 @@ class _SideMenuState extends State<SideMenu> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Yogesh",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontFamily: "Inter"),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(minWidth: 150, maxWidth: 150),
+                      child: Text(
+                        "${userEmail}",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontFamily: "Inter"),
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(

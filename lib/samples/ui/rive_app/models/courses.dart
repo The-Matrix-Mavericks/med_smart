@@ -17,7 +17,7 @@ class CourseModel {
 
   static List<CourseModel> courses = [
     CourseModel(
-        title: "Post Traumatic Stress Disorder",
+        title: "Stress Disorder",
         subtitle:
             "Learn ways to fight PTSD by developing new hobbies with Med Smart",
         caption: "Know more",

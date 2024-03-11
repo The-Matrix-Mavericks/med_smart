@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_samples/models/samples.dart';
 import 'package:flutter_samples/samples/animations/animation_samples_list.dart';
 import 'package:flutter_samples/samples/animations/custom_caret/custom_caret.dart';
-import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onboarding_view.dart';
 import 'package:flutter_samples/screens/intro_screens/intro_view.dart';
 import 'package:flutter_samples/screens/samples_list_view.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';

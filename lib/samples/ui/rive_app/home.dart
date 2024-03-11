@@ -13,7 +13,7 @@ import 'package:rive/rive.dart' hide LinearGradient;
 import 'dart:math' as math;
 import 'package:flutter_samples/samples/ui/rive_app/navigation/custom_tab_bar.dart';
 import 'package:flutter_samples/samples/ui/rive_app/navigation/home_tab_view.dart';
-import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onboarding_view.dart';
 import 'package:flutter_samples/samples/ui/rive_app/navigation/side_menu.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
@@ -149,10 +149,10 @@ class _RiveAppHomeState extends State<RiveAppHome>
   }
 
 // Signing out from the App using this lines of code
-  signout() async {
-    await FirebaseAuth.instance.signOut();
-    Helper.saveUserData(false);
-  }
+  // signout() async {
+  //   await FirebaseAuth.instance.signOut();
+  //   Helper.saveUserData(false);
+  // }
 
   // Get Access of Firebase
   final user = FirebaseAuth.instance.currentUser;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/color.dart';
-import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding_view.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onboarding_view.dart';
 import 'package:flutter_samples/samples/ui/rive_app/login_signup/wrapper.dart';
 import 'package:flutter_samples/screens/intro_screens/intro_items.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -28,10 +28,11 @@ class _SignUpViewState extends State<SignUpView> {
   signUp() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text, password: _passController.text);
-    Get.offAll(Wrapper());
+    Get.offAll(() => Wrapper());
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString('email', _emailController.text.toString());
     sp.setBool('isLogin', true);
+    sp.setBool('isRegistered', true);
     print("USER LOGIN---->true");
   }
 

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onboarding_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -12,6 +13,8 @@ class UserProfilePage extends StatefulWidget {
 class _UserProfilePageState extends State<UserProfilePage> {
   signout() async {
     await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => OnBoardingView()));
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.clear();
   }

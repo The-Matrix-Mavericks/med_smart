@@ -50,12 +50,12 @@ class _SplashScreenState extends State<SplashScreen> {
     print(isLogin);
     if (isLogin) {
       Timer(const Duration(seconds: 2), () {
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const RiveAppHome()));
       });
     } else {
       Timer(const Duration(seconds: 2), () {
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const IntroView()));
       });
     }

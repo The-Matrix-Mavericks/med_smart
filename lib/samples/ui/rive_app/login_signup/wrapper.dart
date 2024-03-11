@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../home.dart';
 import 'login_view.dart';
-import 'onboarding_view.dart';
+import 'onboarding/onboarding_view.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({super.key});
@@ -14,6 +14,11 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
