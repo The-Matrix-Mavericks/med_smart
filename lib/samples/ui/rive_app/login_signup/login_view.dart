@@ -8,6 +8,9 @@ import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
 import 'package:flutter_samples/samples/ui/rive_app/login_signup/forgot.dart';
+import 'package:flutter_samples/samples/ui/rive_app/login_signup/wrapper.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
@@ -64,6 +67,9 @@ class _LogInViewState extends State<LogInView> {
     sp.setString('email', _emailController.text.toString());
     sp.setBool('isLogin', true);
     print("USER LOGIN---->true");
+    // Navigator.pushReplacement(context,
+    //     MaterialPageRoute(builder: (BuildContext context) => RiveAppHome()));
+    Get.offAll(() => Wrapper());
   }
 
   void login() {
