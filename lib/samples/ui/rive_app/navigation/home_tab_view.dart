@@ -17,12 +17,12 @@ class _HomeTabViewState extends State<HomeTabView> {
   final List<CourseModel> _courses = CourseModel.courses;
   final List<CourseModel> _courseSections = CourseModel.courseSections;
 
-  TextEditingController name = TextEditingController();
-  TextEditingController age = TextEditingController();
-  TextEditingController friendName = TextEditingController();
-  TextEditingController friendContact = TextEditingController();
-  TextEditingController friendPhone = TextEditingController();
-  TextEditingController specialist = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   TextEditingController specialistContact = TextEditingController();
 
   bool showPopup = false;
@@ -126,6 +126,8 @@ class _HomeTabViewState extends State<HomeTabView> {
     var width = size.width;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       return showDialog(
+          // useSafeArea: true,
+          anchorPoint: Offset(2, 2),
           barrierDismissible: false,
           context: context,
           builder: (context) {
@@ -139,7 +141,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(height: height / 20),
+                          SizedBox(height: height / 50),
                           // Image(
                           //   image: AssetImage('assets/brain4.png'),
                           //   height: height / 4,
@@ -154,7 +156,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                           ),
                           TextFieldComponent(
                             width: width,
-                            controller: name,
+                            controller: nameController,
                             hintText: "Enter your name",
                             FieldName: "Name",
                             type: TextInputType.text,
@@ -162,58 +164,67 @@ class _HomeTabViewState extends State<HomeTabView> {
                           ),
                           TextFieldComponent(
                             width: width,
-                            controller: age,
-                            hintText: "Enter your age",
-                            FieldName: "Age",
-                            type: TextInputType.number,
-                            necessaryField: true,
-                          ),
-                          TextFieldComponent(
-                            width: width,
-                            controller: friendName,
-                            hintText: "Enter your well wisher's name",
-                            FieldName: "Well Wisher's Name",
-                            type: TextInputType.text,
-                            necessaryField: true,
-                          ),
-                          TextFieldComponent(
-                            width: width,
-                            controller: friendContact,
-                            hintText: "Enter your Well wisher's Email",
-                            FieldName: "Email",
-                            type: TextInputType.emailAddress,
-                            necessaryField: true,
-                          ),
-                          TextFieldComponent(
-                            width: width,
-                            controller: friendPhone,
-                            hintText: "Enter your Well wisher's Contact No",
+                            controller: phoneController,
+                            hintText: "Enter your Contact No",
                             FieldName: "Phone",
                             type: TextInputType.phone,
                             necessaryField: true,
                           ),
-                          SizedBox(height: height / 20),
-                          Text(
-                            'If you have any history of mental/health related diagonasis,\nPlease fill the following',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14, color: Colors.red),
-                          ),
                           TextFieldComponent(
                             width: width,
-                            controller: specialist,
-                            hintText: "Enter name of specialist/pyschologist",
-                            FieldName: "Name of specialist",
+                            controller: addressController,
+                            hintText: "Enter your Address",
+                            FieldName: "Address",
                             type: TextInputType.text,
-                            necessaryField: false,
+                            necessaryField: true,
                           ),
                           TextFieldComponent(
                             width: width,
-                            controller: specialistContact,
-                            hintText: "Enter email of specialist/pyschologist",
-                            FieldName: "Email of specialist",
-                            type: TextInputType.emailAddress,
+                            controller: ageController,
+                            hintText: "Enter your Age",
+                            FieldName: "Age",
+                            type: TextInputType.number,
+                            necessaryField: true,
+                          ),
+                          // TextFieldComponent(
+                          //   width: width,
+                          //   controller: friendName,
+                          //   hintText: "Enter your well wisher's name",
+                          //   FieldName: "Well Wisher's Name",
+                          //   type: TextInputType.text,
+                          //   necessaryField: true,
+                          // ),
+                          TextFieldComponent(
+                            width: width,
+                            controller: weightController,
+                            hintText: "Enter your Weight",
+                            FieldName: "Weight",
+                            type: TextInputType.number,
+                            necessaryField: true,
+                          ),
+
+                          // SizedBox(height: height / 20),
+                          // Text(
+                          //   'If you have any history of mental/health related diagonasis,\nPlease fill the following',
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(fontSize: 14, color: Colors.red),
+                          // ),
+                          TextFieldComponent(
+                            width: width,
+                            controller: heightController,
+                            hintText: "Enter your Height",
+                            FieldName: "Height",
+                            type: TextInputType.number,
                             necessaryField: false,
                           ),
+                          // TextFieldComponent(
+                          //   width: width,
+                          //   controller: specialistContact,
+                          //   hintText: "Enter email of specialist/pyschologist",
+                          //   FieldName: "Email of specialist",
+                          //   type: TextInputType.emailAddress,
+                          //   necessaryField: false,
+                          // ),
                           SizedBox(height: 20),
 
                           Container(
