@@ -1,9 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_samples/constants/constants.dart';
+import 'package:flutter_samples/controllers/auth_controller.dart';
+import 'package:flutter_samples/controllers/setting_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/hcard.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/vcard.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
 import 'package:flutter_samples/samples/ui/rive_app/models/courses.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeTabView extends StatefulWidget {
@@ -29,6 +36,7 @@ class _HomeTabViewState extends State<HomeTabView> {
   @override
   void initState() {
     super.initState();
+
     getUserDetails();
     Future.delayed(Duration.zero, () {
       if (showPopup) {
@@ -47,6 +55,7 @@ class _HomeTabViewState extends State<HomeTabView> {
 
   @override
   Widget build(BuildContext context) {
+    // var controller = Get.put(;
     // Future.delayed(Duration.zero, () {
     //   if (showPopup) {
     //     showAlert(context, showPopup);
@@ -131,121 +140,149 @@ class _HomeTabViewState extends State<HomeTabView> {
           barrierDismissible: false,
           context: context,
           builder: (context) {
-            return PopScope(
-                canPop: true,
-                onPopInvoked: null,
+            return WillPopScope(
+                // canPop: true,
+                onWillPop: () async {
+                  return true;
+                },
+                // onPopInvoked: null,
                 child: AlertDialog(
+                  backgroundColor: Colors.white,
                   content: SingleChildScrollView(
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(height: height / 50),
-                          // Image(
-                          //   image: AssetImage('assets/brain4.png'),
-                          //   height: height / 4,
-                          //   width: 0.75 * width,
-                          // ),
+                          SizedBox(height: 5),
                           Text(
                             "Please Fill the Details",
                             style: TextStyle(
-                                color: Colors.black87,
+                                color: kTextColor,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontSize: 20,
+                                fontFamily: "Poppins"),
+                          ),
+                          SizedBox(
+                            height: 8,
                           ),
                           TextFieldComponent(
-                            width: width,
-                            controller: nameController,
+                            controller: userNameController,
                             hintText: "Enter your name",
                             FieldName: "Name",
                             type: TextInputType.text,
-                            necessaryField: true,
+                            icon: Icon(Icons.person),
+                            value: SettingsController().userName.value,
                           ),
                           TextFieldComponent(
-                            width: width,
-                            controller: phoneController,
+                            controller: userAboutController,
+                            hintText: "Tell us a bit about you",
+                            FieldName: "About",
+                            type: TextInputType.text,
+                            icon: Icon(Icons.person),
+                            value: SettingsController().userAbout.value,
+                          ),
+                          SizedBox(height: 5),
+                          TextFieldComponent(
+                            controller: userPhoneController,
                             hintText: "Enter your Contact No",
-                            FieldName: "Phone",
-                            type: TextInputType.phone,
-                            necessaryField: true,
+                            FieldName: "Phone no.",
+                            type: TextInputType.number,
+                            icon: Icon(Icons.phone),
+                            value: SettingsController().userPhone.value,
                           ),
+                          SizedBox(height: 5),
                           TextFieldComponent(
-                            width: width,
-                            controller: addressController,
+                            controller: userAddressController,
                             hintText: "Enter your Address",
                             FieldName: "Address",
                             type: TextInputType.text,
-                            necessaryField: true,
+                            icon: Icon(Icons.location_on),
+                            value: SettingsController().userAddress.value,
                           ),
+                          SizedBox(height: 5),
                           TextFieldComponent(
-                            width: width,
-                            controller: ageController,
-                            hintText: "Enter your Age",
+                            controller: userAgeController,
+                            hintText: "Enter your Age(in years)",
                             FieldName: "Age",
                             type: TextInputType.number,
-                            necessaryField: true,
+                            icon: Icon(Icons.numbers),
+                            value: SettingsController().userAge.value,
                           ),
-                          // TextFieldComponent(
-                          //   width: width,
-                          //   controller: friendName,
-                          //   hintText: "Enter your well wisher's name",
-                          //   FieldName: "Well Wisher's Name",
-                          //   type: TextInputType.text,
-                          //   necessaryField: true,
-                          // ),
+                          SizedBox(height: 5),
                           TextFieldComponent(
-                            width: width,
-                            controller: weightController,
-                            hintText: "Enter your Weight",
+                            controller: userWeightController,
+                            hintText: "Enter Weight (in kg)",
                             FieldName: "Weight",
                             type: TextInputType.number,
-                            necessaryField: true,
+                            icon: Icon(Icons.monitor_weight_outlined),
+                            value: SettingsController().userWeight.value,
                           ),
-
-                          // SizedBox(height: height / 20),
-                          // Text(
-                          //   'If you have any history of mental/health related diagonasis,\nPlease fill the following',
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(fontSize: 14, color: Colors.red),
-                          // ),
+                          SizedBox(height: 5),
+                          SizedBox(height: 5),
                           TextFieldComponent(
-                            width: width,
-                            controller: heightController,
-                            hintText: "Enter your Height",
+                            controller: userHeightController,
+                            hintText: "Enter your Height(in cm)",
                             FieldName: "Height",
                             type: TextInputType.number,
-                            necessaryField: false,
+                            icon: Icon(Icons.height),
+                            value: SettingsController().userHeight.value,
                           ),
-                          // TextFieldComponent(
-                          //   width: width,
-                          //   controller: specialistContact,
-                          //   hintText: "Enter email of specialist/pyschologist",
-                          //   FieldName: "Email of specialist",
-                          //   type: TextInputType.emailAddress,
-                          //   necessaryField: false,
-                          // ),
+                          SizedBox(height: 5),
+                          TextFieldComponent(
+                            controller: userGenderController,
+                            hintText: "Select your Gender",
+                            FieldName: "Gender",
+                            type: TextInputType.text,
+                            icon: Icon(FontAwesomeIcons.genderless),
+                            value: SettingsController().userGender.value,
+                          ),
+                          SizedBox(height: 5),
+                          TextFieldComponent(
+                            controller:
+                                userProfessionController,
+                            hintText: "Enter your Profession",
+                            FieldName: "Profession",
+                            type: TextInputType.text,
+                            icon: Icon(FontAwesomeIcons.userDoctor),
+                            value: SettingsController().userProfession.value,
+                          ),
                           SizedBox(height: 20),
-
                           Container(
                             width: 150,
                             child: Card(
-                              shadowColor: Colors.amber,
+                              color: kTextColor,
                               child: TextButton(
-                                  onPressed: () async {
-                                    SharedPreferences sp =
-                                        await SharedPreferences.getInstance();
-                                    showPopup =
-                                        await sp.setBool("isRegistered", false);
-                                    setState(() {});
-                                    // Navigator.pushReplacement(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (BuildContext context) =>
-                                    //             HomeTabView()));
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text("SAVE")),
+                                onPressed: () async {
+                                  SharedPreferences sp =
+                                      await SharedPreferences.getInstance();
+                                  showPopup =
+                                      await sp.setBool("isRegistered", false);
+                                  setState(() {});
+                                  storeUserdata(
+                                    context,
+                                    FirebaseAuth.instance.currentUser!.uid,
+                                    userNameController.text,
+                                    userAboutController.text,
+                                    userAddressController.text,
+                                    userGenderController.text,
+                                    userPhoneController.text,
+                                    userAgeController.text,
+                                    userWeightController.text,
+                                    userHeightController.text,
+                                    userProfessionController.text
+                                  );
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  "SAVE",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontFamily: "Inter",
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                             ),
                           )
                         ],
@@ -256,78 +293,128 @@ class _HomeTabViewState extends State<HomeTabView> {
           });
     });
   }
-}
 
-class TextFieldComponent extends StatelessWidget {
-  const TextFieldComponent(
-      {Key? key,
-      required this.width,
-      required this.controller,
-      required this.hintText,
-      required this.FieldName,
-      required this.type,
-      required this.necessaryField})
-      : super(key: key);
+  var userNameController = TextEditingController();
+  var userAgeController = TextEditingController();
+  var userAddressController = TextEditingController();
+  var userAboutController = TextEditingController();
+  var userHeightController = TextEditingController();
+  var userWeightController = TextEditingController();
+  var userGenderController = TextEditingController();
+  var userPhoneController = TextEditingController();
+  var userProfessionController = TextEditingController();
 
-  final double width;
-  final TextEditingController controller;
-  final String hintText;
-  final String FieldName;
-  final TextInputType type;
-  final bool necessaryField;
+  storeUserdata(
+      context,
+      String uid,
+      String userName,
+      String userAbout,
+      String userAddress,
+      String userGender,
+      String userPhone,
+      String userAge,
+      String userWeight,
+      String userHeight,
+      String userProfession) async {
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 15),
-      child: SizedBox(
-        width: width * 0.9,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  FieldName,
-                  style: TextStyle(fontSize: 15, color: Colors.blue),
-                ),
-                SizedBox(width: 5),
-                necessaryField
-                    ? Text('*',
-                        style: TextStyle(fontSize: 15, color: Colors.red))
-                    : SizedBox()
-              ],
-            ),
-            TextField(
-              keyboardType: type,
-              controller: controller,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.grey[100],
-                hintText: hintText,
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 15),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(
-                    color: Colors.blue,
-                    width: 1.0,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                    width: 2.0,
-                  ),
-                ),
-              ),
-              autofocus: false,
-              style: TextStyle(fontSize: 15, color: Colors.black),
-              cursorColor: Colors.black,
-            ),
-          ],
-        ),
+    var store = FirebaseFirestore.instance.collection('user').doc(uid);
+    await store.set({
+      'userName': userName,
+      'userAbout': userAbout,
+      'userAddress': userAddress,
+      'userGender': userGender,
+      'userPhone': userPhone,
+      'userAge': userAge,
+      'userWeight': userWeight,
+      'userProfession': userProfession,
+      'userHeight': userHeight,
+      'userID': FirebaseAuth.instance.currentUser?.uid,
+      'userEmail': FirebaseAuth.instance.currentUser?.email
+    });
+    if (!userName.isEmpty) {
+      _showToast(context);
+    }
+
+    print("data stored");
+    print(userName);
+    print(userAge);
+    print(userAddress);
+  }
+
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('Data Saved'),
+        action: SnackBarAction(
+            label: 'SAVED', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
+}
+
+// ignore: must_be_immutable
+class TextFieldComponent extends StatelessWidget {
+  TextFieldComponent({
+    Key? key,
+    required this.controller,
+    required this.type,
+    required this.icon,
+    required this.hintText,
+    required this.FieldName,
+    required this.value,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final String hintText;
+  final TextInputType type;
+  final String FieldName;
+  final Icon icon;
+  String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 3.0, bottom: 2),
+          child: Text(
+            FieldName,
+            style: TextStyle(
+                color: Colors.grey[800],
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                fontFamily: 'Inter'),
+          ),
+        ),
+        Container(
+          height: 40,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 3,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              width: 1,
+              color: Colors.grey[300]!,
+            ),
+          ),
+          child: TextField(
+            keyboardType: type,
+            controller: controller,
+            decoration: kTextInputDecoration.copyWith(
+                hintText: hintText, hintStyle: hintStyle, icon: icon),
+            autofocus: false,
+            style: TextStyle(fontSize: 15, color: Colors.black),
+            cursorColor: Colors.black,
+          ),
+        ),
+      ],
+    );
+  }
+
+  TextStyle hintStyle = TextStyle(
+      color: Colors.grey[500], fontWeight: FontWeight.w400, fontSize: 16);
 }

@@ -47,6 +47,7 @@ dependencies:
   change_app_package_name: ^1.1.0
   get: ^4.6.6
   cloud_firestore: ^4.14.0
+  velocity_x: 
 
 dev_dependencies:
   flutter_test:
