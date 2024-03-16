@@ -31,12 +31,51 @@ class CustomTextFieldWithFieldName extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               width: 1,
-              color: Colors.grey[300]!,
+              color: Colors.grey[400]!,
             ),
           ),
           child: textField,
         ),
       ],
+    );
+  }
+}
+
+class CustomTextField extends StatefulWidget {
+  final String hint;
+  final Color textColor;
+  final Color borderColor;
+  final Color inputColor;
+  final TextEditingController? textController;
+  const CustomTextField({
+    super.key,
+    required this.hint,
+    this.textController,
+    this.textColor = Colors.black,
+    this.borderColor = Colors.black,
+    this.inputColor = Colors.black,
+  });
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      style: TextStyle(color: widget.inputColor),
+      controller: widget.textController,
+      cursorColor: Colors.blue,
+      decoration: InputDecoration(
+          isDense: true,
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: widget.borderColor)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: widget.borderColor)),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(color: widget.borderColor)),
+          hintText: widget.hint,
+          hintStyle: TextStyle(color: widget.textColor)),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_samples/controllers/setting_controller.dart';
+import 'package:flutter_samples/controllers/user_data_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart';
@@ -87,14 +87,9 @@ class AuthController extends GetxController {
       'userID': FirebaseAuth.instance.currentUser?.uid,
       'userEmail': FirebaseAuth.instance.currentUser?.email
     });
-    if (!userName.isEmpty) {
-      _showToast(context);
-    }
-
-    print("data stored");
-    print(SettingsController().userName.value);
-    print(SettingsController().userAge.value);
-    print(SettingsController().userAddress.value);
+    // if (!userName.isEmpty) {
+    //   _showToast(context);
+    // }
   }
 
   void _showToast(BuildContext context) {

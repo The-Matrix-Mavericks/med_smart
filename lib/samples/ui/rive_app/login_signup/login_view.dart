@@ -15,6 +15,7 @@ import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../services/service.dart';
 
@@ -95,7 +96,11 @@ class _LogInViewState extends State<LogInView> {
     if (isValid) {
       Future.delayed(const Duration(seconds: 4), () async {
         signIn();
-
+        VxToast.show(context,
+            msg: "Login Successful ✅",
+            textSize: 18,
+            bgColor: Colors.black,
+            textColor: Colors.white);
         widget.closeModal!();
         _emailController.text = "";
         _passController.text = "";

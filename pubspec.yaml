@@ -48,6 +48,7 @@ dependencies:
   get: ^4.6.6
   cloud_firestore: ^4.14.0
   velocity_x: 
+  anim_search_bar:
 
 dev_dependencies:
   flutter_test:

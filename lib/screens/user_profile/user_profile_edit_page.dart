@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/constants.dart';
-import 'package:flutter_samples/controllers/setting_controller.dart';
+import 'package:flutter_samples/controllers/user_data_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/custom_text_field.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class UserProfileEditPage extends StatefulWidget {
 class _UserProfileEditPageState extends State<UserProfileEditPage> {
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(SettingsController());
+    var controller = Get.put(UserDataController());
     return Scaffold(
       appBar: AppBar(
         title: Text(

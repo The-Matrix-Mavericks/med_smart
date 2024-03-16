@@ -51,7 +51,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           gradient: LinearGradient(colors: [
-            Colors.white.withOpacity(0.5),
+            Colors.white.withOpacity(0.3),
             Colors.white.withOpacity(0)
           ]),
         ),
@@ -59,7 +59,8 @@ class _CustomTabBarState extends State<CustomTabBar> {
           // Clip to avoid the tab touch outside the border radius area
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: RiveAppTheme.background2.withOpacity(0.8),
+            // color: RiveAppTheme.background2.withOpacity(0.9),
+            color: RiveAppTheme.background2.withOpacity(0.85),
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
@@ -71,7 +72,6 @@ class _CustomTabBarState extends State<CustomTabBar> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            
             children: List.generate(_icons.length, (index) {
               TabItem icon = _icons[index];
 

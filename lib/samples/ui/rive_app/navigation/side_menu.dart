@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_samples/controllers/user_data_controller.dart';
+import 'package:get/get.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/menu_row.dart';
 import 'package:flutter_samples/samples/ui/rive_app/models/menu_item.dart';
@@ -55,6 +58,7 @@ class _SideMenuState extends State<SideMenu> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(UserDataController());
     return Container(
       padding: EdgeInsets.only(
           top: MediaQuery.of(context).padding.top,
@@ -83,22 +87,80 @@ class _SideMenuState extends State<SideMenu> {
                   children: [
                     ConstrainedBox(
                       constraints: BoxConstraints(minWidth: 150, maxWidth: 150),
-                      child: Text(
-                        "${userEmail}",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontFamily: "Inter"),
+                      child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('user')
+                            .doc(FirebaseAuth.instance.currentUser?.uid)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            DocumentSnapshot userData = snapshot.data!;
+                            return Text(
+                              userData["userName"],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.w700),
+                            );
+                          } else if (snapshot.hasError) {
+                            print(Error); //just for checking
+                          }
+                          return const CircularProgressIndicator(); // loading progress indicate
+                        },
                       ),
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      "Software Engineer",
-                      style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
-                          fontSize: 15,
-                          fontFamily: "Inter"),
-                    )
+                    // const SizedBox(height: 2),
+
+                    // StreamBuilder(
+                    //     stream: FirebaseFirestore.instance
+                    //         .collection('user')
+                    //         .doc(FirebaseAuth.instance.currentUser?.uid)
+                    //         .snapshots(),
+                    //     builder: (context, snapshot) {
+                    //       if (snapshot.hasData) {
+                    //         DocumentSnapshot userData = snapshot.data!;
+                    //         return Text(
+                    //           userData["userName"],
+                    //           style: TextStyle(
+                    //               color: Colors.white,
+                    //               fontSize: 20,
+                    //               fontFamily: "Inter",
+                    //               fontWeight: FontWeight.w700),
+                    //         );
+                    //       } else if (snapshot.hasError) {
+                    //         print(Error); //just for checking
+                    //       }
+                    //       return const CircularProgressIndicator(); // loading progress indicate
+                    //     }),
+                    StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('user')
+                            .doc(FirebaseAuth.instance.currentUser?.uid)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            DocumentSnapshot userData = snapshot.data!;
+                            return Text(
+                              userData["userEmail"],
+                              style: TextStyle(
+                                  color: Colors.white.withOpacity(0.7),
+                                  fontSize: 15,
+                                  fontFamily: "Inter"),
+                            );
+                          } else if (snapshot.hasError) {
+                            print(Error); //just for checking
+                          }
+                          return const CircularProgressIndicator(); // loading progress indicate
+                        }),
+
+                    // Text(
+                    //   controller.userEmail.value,
+                    //   style: TextStyle(
+                    //       color: Colors.white.withOpacity(0.7),
+                    //       fontSize: 15,
+                    //       fontFamily: "Inter"),
+                    // )
                   ],
                 ),
               ],

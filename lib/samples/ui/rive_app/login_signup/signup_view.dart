@@ -10,6 +10,7 @@ import 'package:rive/rive.dart' hide LinearGradient;
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({Key? key, this.closeModal}) : super(key: key);
@@ -93,6 +94,11 @@ class _SignUpViewState extends State<SignUpView> {
     if (isValid) {
       Future.delayed(const Duration(seconds: 4), () {
         signUp();
+        VxToast.show(context,
+            msg: "Signup Successful ✅",
+            textSize: 18,
+            bgColor: Colors.black,
+            textColor: Colors.white);
         widget.closeModal!();
         _emailController.text = "";
         _passController.text = "";

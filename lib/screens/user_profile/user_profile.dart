@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/controllers/setting_controller.dart';
+import 'package:flutter_samples/constants/constants.dart';
+import 'package:flutter_samples/controllers/user_data_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onboarding_view.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import 'user_profile_edit_page.dart';
 
@@ -23,252 +26,372 @@ class _UserProfilePageState extends State<UserProfilePage> {
     sp.clear();
   }
 
+  // getUserDataFromStreamBuilder(String field, TextStyle style, String before, String after) {
+  //   StreamBuilder(
+  //       stream: FirebaseFirestore.instance
+  //           .collection('user')
+  //           .doc(FirebaseAuth.instance.currentUser?.uid)
+  //           .snapshots(),
+  //       builder: (context, snapshot) {
+  //         if (snapshot.hasData) {
+  //           DocumentSnapshot userData = snapshot.data!;
+  //           return Text(
+  //             userData[field],
+  //             style: style
+  //           );
+  //         } else if (snapshot.hasError) {
+  //           print(Error); //just for checking
+  //         }
+  //         return const CircularProgressIndicator(); // loading progress indicate
+  //       });
+  // }
+
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(SettingsController());
+    var controller = Get.put(UserDataController());
     return Scaffold(
       body: Container(
         color: Colors.white54,
-        child: Obx(
-          () => controller.isLoading.value
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
-                  children: [
-                    const SizedBox(
-                      height: 100,
-                    ),
-                    // const ListTile(
-                    //   leading: Icon(Icons.arrow_back),
-                    //   trailing: Icon(Icons.menu),
-                    // ),
-                    CircleAvatar(
-                      maxRadius: 65,
-                      backgroundImage: AssetImage("assets/images/man.png"),
-                    ),
-                    // const SizedBox(
-                    //   height: 15,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: const [
-                    //     CircleAvatar(
-                    //       backgroundImage: AssetImage("assets/images/avatar.webp"),
-                    //     ),
-                    //     SizedBox(
-                    //       width: 15,
-                    //     ),
-                    //     CircleAvatar(
-                    //       backgroundImage: AssetImage("assets/images/avatar.webp"),
-                    //     ),
-                    //     SizedBox(
-                    //       width: 15,
-                    //     ),
-                    //     CircleAvatar(
-                    //       backgroundImage: AssetImage("assets/images/avatar.webp"),
-                    //     ),
-                    //     SizedBox(
-                    //       width: 15,
-                    //     ),
-                    //     CircleAvatar(
-                    //       backgroundImage: AssetImage("assets/images/avatar.webp"),
-                    //     )
-                    //   ],
-                    // ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      controller.userName.value,
+        child:
+            // Obx(
+            //   () => controller.isLoading.value
+            //       ? Center(
+            //           child: CircularProgressIndicator(),
+            //         )
+            //       :
+            Column(
+          children: [
+            const SizedBox(
+              height: 100,
+            ),
+            // const ListTile(
+            //   leading: Icon(Icons.arrow_back),
+            //   trailing: Icon(Icons.menu),
+            // ),
+            CircleAvatar(
+              maxRadius: 65,
+              backgroundImage: AssetImage("assets/images/man.png"),
+            ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: const [
+            //     CircleAvatar(
+            //       backgroundImage: AssetImage("assets/images/avatar.webp"),
+            //     ),
+            //     SizedBox(
+            //       width: 15,
+            //     ),
+            //     CircleAvatar(
+            //       backgroundImage: AssetImage("assets/images/avatar.webp"),
+            //     ),
+            //     SizedBox(
+            //       width: 15,
+            //     ),
+            //     CircleAvatar(
+            //       backgroundImage: AssetImage("assets/images/avatar.webp"),
+            //     ),
+            //     SizedBox(
+            //       width: 15,
+            //     ),
+            //     CircleAvatar(
+            //       backgroundImage: AssetImage("assets/images/avatar.webp"),
+            //     )
+            //   ],
+            // ),
+            const SizedBox(
+              height: 10,
+            ),
+            StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('user')
+                    .doc(FirebaseAuth.instance.currentUser?.uid)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    DocumentSnapshot userData = snapshot.data!;
+                    return Text(
+                      userData["userName"],
                       style: TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 24,
                           fontFamily: "Inter"),
-                    ),
-                    Text(
-                      "${controller.userProfession.value.toUpperCase()} | ${controller.userGender.value.toUpperCase()} | ${controller.userAge}",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(controller.userEmail.value),
-                    const SizedBox(height: 2),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 2, horizontal: 30),
-                      child: Row(
-                        children: [
-                          Icon(Icons.notes_outlined),
-                          SizedBox(width: 10),
-                          Text(controller.userAbout.value),
-                        ],
+                    );
+                  } else if (snapshot.hasError) {
+                    print(Error); //just for checking
+                  }
+                  return const CircularProgressIndicator(); // loading progress indicate
+                }),
+            // Text(
+            //   controller.userName.value.toString(),
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.w900,
+            //       fontSize: 24,
+            //       fontFamily: "Inter"),
+            // ),
+            StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('user')
+                    .doc(FirebaseAuth.instance.currentUser?.uid)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    DocumentSnapshot userData = snapshot.data!;
+                    return Text(
+                      "${userData['userProfession'].toUpperCase()} | ${userData['userGender'].toUpperCase()} | ${userData['userAge']}",
+                      style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    );
+                  } else if (snapshot.hasError) {
+                    print(Error); //just for checking
+                  }
+                  return const CircularProgressIndicator(); // loading progress indicate
+                }),
+            // Text(
+            //   "${controller.userProfession.value.toUpperCase()} | ${controller.userGender.value.toUpperCase()} | ${controller.userAge}",
+            //   style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+            // ),
+            const SizedBox(height: 2),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.alternate_email, color: kTextColor),
+                  10.widthBox,
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('user')
+                          .doc(FirebaseAuth.instance.currentUser?.uid)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          DocumentSnapshot userData = snapshot.data!;
+                          return Text(userData["userEmail"],
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.grey[600]));
+                        } else if (snapshot.hasError) {
+                          print(Error); //just for checking
+                        }
+                        return const CircularProgressIndicator(); // loading progress indicate
+                      }),
+                  // Text(controller.userEmail.value,
+                  //     style: TextStyle(fontSize: 16, color: Colors.grey[600])),
+                ],
+              ),
+            ),
+            const SizedBox(height: 2),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.call, color: kTextColor),
+                  SizedBox(width: 10),
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('user')
+                          .doc(FirebaseAuth.instance.currentUser?.uid)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          DocumentSnapshot userData = snapshot.data!;
+                          return Text("${userData['userPhone']}   | ",
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.grey[600]));
+                        } else if (snapshot.hasError) {
+                          print(Error); //just for checking
+                        }
+                        return const CircularProgressIndicator(); // loading progress indicate
+                      }),
+                  // Text("${controller.userPhone.value}   | ",
+                  //     style: TextStyle(fontSize: 16, color: Colors.grey[600])),
+                  Icon(Icons.location_on, color: kTextColor),
+                  SizedBox(width: 10),
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('user')
+                          .doc(FirebaseAuth.instance.currentUser?.uid)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          DocumentSnapshot userData = snapshot.data!;
+                          return Text("${userData['userAddress']}",
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.grey[600]));
+                        } else if (snapshot.hasError) {
+                          print(Error); //just for checking
+                        }
+                        return const CircularProgressIndicator(); // loading progress indicate
+                      }),
+                  // Text("${controller.userAddress.value}",
+                  //     style: TextStyle(fontSize: 16, color: Colors.grey[600])),
+                ],
+              ),
+            ),
+
+            // const SizedBox(
+            //   height: 15,
+            // ),
+            Container(
+              child: Expanded(
+                  child: ListView(
+                children: [
+                  GestureDetector(
+                    // onTap: () => Get.to(() => UserProfileEditPage()),
+                    child: Card(
+                      margin:
+                          const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                      color: Colors.cyan[50],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const ListTile(
+                        leading: Icon(
+                          Icons.edit,
+                          color: Colors.black54,
+                        ),
+                        title: Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black54,
+                        ),
                       ),
                     ),
-
-                    // const SizedBox(
-                    //   height: 15,
-                    // ),
-                    Container(
-                      child: Expanded(
-                          child: ListView(
-                        children: [
-                          GestureDetector(
-                            onTap: () => Get.to(() => UserProfileEditPage()),
-                            child: Card(
-                              margin: const EdgeInsets.only(
-                                  left: 35, right: 35, bottom: 10),
-                              color: Colors.grey[100],
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: const ListTile(
-                                leading: Icon(
-                                  Icons.edit,
-                                  color: Colors.black54,
-                                ),
-                                title: Text(
-                                  'Edit Profile',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                trailing: Icon(
-                                  Icons.arrow_forward_ios_outlined,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Card(
-                            color: Colors.grey[100],
-                            margin: const EdgeInsets.only(
-                                left: 35, right: 35, bottom: 10),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            child: const ListTile(
-                              leading: Icon(
-                                Icons.history,
-                                color: Colors.black54,
-                              ),
-                              title: Text(
-                                'Purchase History',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              trailing: Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Card(
-                            color: Colors.grey[100],
-                            margin: const EdgeInsets.only(
-                                left: 35, right: 35, bottom: 10),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            child: const ListTile(
-                              leading: Icon(Icons.help_outline,
-                                  color: Colors.black54),
-                              title: Text(
-                                'Help & Support',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              trailing: Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Card(
-                            color: Colors.grey[100],
-                            margin: const EdgeInsets.only(
-                                left: 35, right: 35, bottom: 10),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            child: const ListTile(
-                              leading: Icon(
-                                Icons.privacy_tip_sharp,
-                                color: Colors.black54,
-                              ),
-                              title: Text(
-                                'Settings',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              trailing: Icon(Icons.arrow_forward_ios_outlined),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Card(
-                            color: Colors.grey[100],
-                            margin: const EdgeInsets.only(
-                                left: 35, right: 35, bottom: 10),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            child: const ListTile(
-                              leading: Icon(
-                                Icons.add_reaction_sharp,
-                                color: Colors.black54,
-                              ),
-                              title: Text(
-                                'Invite a Friend',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              trailing: Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              signout();
-                            },
-                            child: Card(
-                              color: Colors.grey[100],
-                              margin: const EdgeInsets.only(
-                                  left: 35, right: 35, bottom: 10),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: const ListTile(
-                                leading: Icon(
-                                  Icons.logout,
-                                  color: Colors.black54,
-                                ),
-                                title: Text(
-                                  'Logout',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                trailing:
-                                    Icon(Icons.arrow_forward_ios_outlined),
-                              ),
-                            ),
-                          )
-                        ],
-                      )),
-                    )
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Card(
+                    color: Colors.blue[50],
+                    margin:
+                        const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    child: const ListTile(
+                      leading: Icon(
+                        Icons.history,
+                        color: Colors.black54,
+                      ),
+                      title: Text(
+                        'Purchase History',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Card(
+                    color: Colors.yellow[50]!,
+                    margin:
+                        const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    child: const ListTile(
+                      leading: Icon(Icons.help_outline, color: Colors.black54),
+                      title: Text(
+                        'Help & Support',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Card(
+                    color: Colors.orange[50],
+                    margin:
+                        const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    child: const ListTile(
+                      leading: Icon(
+                        Icons.privacy_tip_sharp,
+                        color: Colors.black54,
+                      ),
+                      title: Text(
+                        'Settings',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Icon(Icons.arrow_forward_ios_outlined),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Card(
+                    color: Colors.green[50],
+                    margin:
+                        const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    child: const ListTile(
+                      leading: Icon(
+                        Icons.add_reaction_sharp,
+                        color: Colors.black54,
+                      ),
+                      title: Text(
+                        'Invite a Friend',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      signout();
+                    },
+                    child: Card(
+                      color: Colors.red[50],
+                      margin:
+                          const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const ListTile(
+                        leading: Icon(
+                          Icons.logout,
+                          color: Colors.black54,
+                        ),
+                        title: Text(
+                          'Logout',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Icon(Icons.arrow_forward_ios_outlined),
+                      ),
+                    ),
+                  ),
+                  20.heightBox
+                ],
+              )),
+            )
+          ],
         ),
       ),
+      // ),
     );
     // Scaffold(
     //   body:

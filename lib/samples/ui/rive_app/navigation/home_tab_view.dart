@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/controllers/auth_controller.dart';
-import 'package:flutter_samples/controllers/setting_controller.dart';
+import 'package:flutter_samples/controllers/user_data_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/hcard.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/vcard.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
@@ -11,6 +11,7 @@ import 'package:flutter_samples/samples/ui/rive_app/models/courses.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeTabView extends StatefulWidget {
@@ -172,15 +173,15 @@ class _HomeTabViewState extends State<HomeTabView> {
                             FieldName: "Name",
                             type: TextInputType.text,
                             icon: Icon(Icons.person),
-                            value: SettingsController().userName.value,
+                            value: UserDataController().userName.value,
                           ),
                           TextFieldComponent(
                             controller: userAboutController,
                             hintText: "Tell us a bit about you",
                             FieldName: "About",
                             type: TextInputType.text,
-                            icon: Icon(Icons.person),
-                            value: SettingsController().userAbout.value,
+                            icon: Icon(Icons.edit_document),
+                            value: UserDataController().userAbout.value,
                           ),
                           SizedBox(height: 5),
                           TextFieldComponent(
@@ -189,7 +190,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                             FieldName: "Phone no.",
                             type: TextInputType.number,
                             icon: Icon(Icons.phone),
-                            value: SettingsController().userPhone.value,
+                            value: UserDataController().userPhone.value,
                           ),
                           SizedBox(height: 5),
                           TextFieldComponent(
@@ -198,7 +199,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                             FieldName: "Address",
                             type: TextInputType.text,
                             icon: Icon(Icons.location_on),
-                            value: SettingsController().userAddress.value,
+                            value: UserDataController().userAddress.value,
                           ),
                           SizedBox(height: 5),
                           TextFieldComponent(
@@ -207,7 +208,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                             FieldName: "Age",
                             type: TextInputType.number,
                             icon: Icon(Icons.numbers),
-                            value: SettingsController().userAge.value,
+                            value: UserDataController().userAge.value,
                           ),
                           SizedBox(height: 5),
                           TextFieldComponent(
@@ -216,7 +217,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                             FieldName: "Weight",
                             type: TextInputType.number,
                             icon: Icon(Icons.monitor_weight_outlined),
-                            value: SettingsController().userWeight.value,
+                            value: UserDataController().userWeight.value,
                           ),
                           SizedBox(height: 5),
                           SizedBox(height: 5),
@@ -226,7 +227,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                             FieldName: "Height",
                             type: TextInputType.number,
                             icon: Icon(Icons.height),
-                            value: SettingsController().userHeight.value,
+                            value: UserDataController().userHeight.value,
                           ),
                           SizedBox(height: 5),
                           TextFieldComponent(
@@ -235,17 +236,16 @@ class _HomeTabViewState extends State<HomeTabView> {
                             FieldName: "Gender",
                             type: TextInputType.text,
                             icon: Icon(FontAwesomeIcons.genderless),
-                            value: SettingsController().userGender.value,
+                            value: UserDataController().userGender.value,
                           ),
                           SizedBox(height: 5),
                           TextFieldComponent(
-                            controller:
-                                userProfessionController,
+                            controller: userProfessionController,
                             hintText: "Enter your Profession",
                             FieldName: "Profession",
                             type: TextInputType.text,
                             icon: Icon(FontAwesomeIcons.userDoctor),
-                            value: SettingsController().userProfession.value,
+                            value: UserDataController().userProfession.value,
                           ),
                           SizedBox(height: 20),
                           Container(
@@ -260,18 +260,17 @@ class _HomeTabViewState extends State<HomeTabView> {
                                       await sp.setBool("isRegistered", false);
                                   setState(() {});
                                   storeUserdata(
-                                    context,
-                                    FirebaseAuth.instance.currentUser!.uid,
-                                    userNameController.text,
-                                    userAboutController.text,
-                                    userAddressController.text,
-                                    userGenderController.text,
-                                    userPhoneController.text,
-                                    userAgeController.text,
-                                    userWeightController.text,
-                                    userHeightController.text,
-                                    userProfessionController.text
-                                  );
+                                      context,
+                                      FirebaseAuth.instance.currentUser!.uid,
+                                      userNameController.text,
+                                      userAboutController.text,
+                                      userAddressController.text,
+                                      userGenderController.text,
+                                      userPhoneController.text,
+                                      userAgeController.text,
+                                      userWeightController.text,
+                                      userHeightController.text,
+                                      userProfessionController.text);
                                   Navigator.pop(context);
                                 },
                                 child: Text(
@@ -316,7 +315,6 @@ class _HomeTabViewState extends State<HomeTabView> {
       String userWeight,
       String userHeight,
       String userProfession) async {
-
     var store = FirebaseFirestore.instance.collection('user').doc(uid);
     await store.set({
       'userName': userName,

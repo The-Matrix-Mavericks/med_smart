@@ -5,20 +5,20 @@ import 'package:flutter_samples/samples/ui/rive_app/home.dart';
 import 'package:flutter_samples/screens/intro_screens/intro_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(MyApp());
-}
+// void main() {
+//   runApp(MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: SplashScreen(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'Flutter Demo',
+//       home: SplashScreen(),
+//     );
+//   }
+// }
 
 class SplashScreen extends StatefulWidget {
   @override
