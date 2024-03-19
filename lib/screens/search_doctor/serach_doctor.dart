@@ -6,6 +6,7 @@ import 'package:flutter_samples/samples/ui/rive_app/components/custom_text_field
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/screens/search_doctor/doctor_profile_screen.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
+import 'package:flutter_samples/screens/user_health_metrics/utils/data_container.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -18,11 +19,44 @@ class SearchDoctorPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<SearchDoctorPage> {
+  List<String> icons = [
+    "assets/icons/tooth.png",
+    "assets/icons/heart.png",
+    "assets/icons/hair.png",
+    "assets/icons/skin.png",
+    "assets/icons/nose.png",
+    "assets/icons/stomach.png",
+    "assets/icons/lungs.png",
+    "assets/icons/bone.png",
+    "assets/icons/eye.png",
+    "assets/icons/ear.png",
+  ];
+  List<String> iconsLable = [
+    'Tooth',
+    'Heart',
+    'Hair',
+    'Skin',
+    'Nose',
+    'Stomach',
+    'Lungs',
+    'Bones',
+    'Eyes',
+    'Ears',
+  ];
+
+  bool isViewAll = false;
   @override
   Widget build(BuildContext context) {
+    var _height = MediaQuery.of(context).size.height;
+    var _width = MediaQuery.of(context).size.width;
     var controller = Get.put(DoctorScreenController());
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 252, 254, 255),
       appBar: AppBar(
+        leading: Icon(
+          Icons.abc,
+          color: Colors.white,
+        ),
         title: Image.asset(
           "assets/images/app_logo.png",
           height: 40,
@@ -68,62 +102,186 @@ class _ChatPageState extends State<SearchDoctorPage> {
             //   ),
             // ),
             Padding(
-              padding: const EdgeInsets.only(top: 0.0, right: 15, left: 15),
-
-              /// In AnimSearchBar widget, the width, textController, onSuffixTap are required properties.
-              /// You have also control over the suffixIcon, prefixIcon, helpText and animationDurationInMilli
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(35.0),
-                    child: Center(
-                        child: Text("DOCTORS",
+                padding: const EdgeInsets.only(
+                    top: 30.0, right: 18, left: 18, bottom: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFF9CC5FF).withOpacity(0.6),
+                            Color.fromARGB(255, 40, 76, 255).withOpacity(0.3)
+                          ]),
+                      // color: Color(0xFF9CC5FF).withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(15)),
+                  height: _height * 0.2,
+                  width: double.infinity,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Image.asset(
+                        "assets/images/home_doc.png",
+                        height: _height * 0.2,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "How do you feel?",
                             style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 24,
-                                color: kTextColor,
-                                fontFamily: "Popins"))),
+                                fontSize: 18,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold),
+                          ),
+                          8.heightBox,
+                          Text(
+                            "When you need any help,\nMed Smart is with you... ",
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400),
+                          ),
+                          10.heightBox,
+                          Container(
+                            height: 40,
+                            width: 120,
+                            decoration: BoxDecoration(
+                                color: Color(0xFFBBA6FF).withOpacity(0.6),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Center(
+                              child: Text(
+                                "Get started",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 75.0, right: 10),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text("View all",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                              color: kTextColor,
-                              fontFamily: "Inter")),
-                    ),
-                  ),
-                  AnimSearchBar(
-                    helpText: "Search Doctor..",
-                    suffixIcon: Icon(
-                      FontAwesomeIcons.close,
-                      color: Colors.white,
-                    ),
-                    textFieldColor: Colors.grey[300],
-                    color: Colors.grey[700],
-                    prefixIcon: Icon(
-                      FontAwesomeIcons.search,
-                      color: Colors.white,
-                    ),
+                )),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 0.0, right: 20, left: 18, bottom: 15),
+              child: Container(
+                padding: EdgeInsets.only(left: 20, top: 5),
+                decoration: BoxDecoration(
+                    color: Color(0xFF9CC5FF).withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(15)),
+                height: _height * 0.08,
+                width: double.infinity,
+                child: TextField(
+                  decoration: InputDecoration(
+                      icon: Icon(
+                        FontAwesomeIcons.search,
+                        color: Colors.grey[600],
+                      ),
+                      border: InputBorder.none,
+                      hintText: "How can we help you?",
+                      hintStyle: textStyle1.copyWith(
+                          color: Colors.grey[600], fontSize: 16)),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: SizedBox(
+                height: 50,
+                child: ListView.builder(
+                    // to show top 3 doctors
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: icons.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        // onTap: () {
+                        //   Get.to(() => DoctorProfileView(
+                        //         doc: data![index],
+                        //       ));
+                        // },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                // border: Border.all(
+                                //     color: Colors.grey[200]!, width: 2),
+                                // color: Color(0xFF9CC5FF).withOpacity(0.9),
+                                color: Color.fromARGB(255, 233, 227, 255)
+                                    .withOpacity(0.7),
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //       color: Colors.black45,
+                                //       blurRadius: 5,
+                                //       offset: Offset(5, 5))
+                                // ],
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Row(
+                              children: [
+                                // 8.heightBox,
+                                Image.asset(
+                                  icons[index], // show doctor pic
+                                  height: 40.0,
+                                  // color: Colors.white,
+                                  fit: BoxFit.cover,
+                                ),
+                                5.widthBox,
+                                Text(
+                                  iconsLable[index],
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[800]),
+                                ),
+                                // 5.heightBox
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+            ),
+            10.heightBox,
+            Padding(
+              padding: const EdgeInsets.only(right: 18.0, left: 18),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    isViewAll ? "Available Doctors" : "Top Doctors",
                     style: TextStyle(
-                        fontSize: 16, color: Colors.black, fontFamily: 'Inter'),
-                    width: 400,
-                    textController: controller.searchQueryController,
-                    onSuffixTap: () {
+                        fontSize: 18,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800]),
+                  ),
+                  GestureDetector(
+                    onTap: (() {
                       setState(() {
-                        controller.searchQueryController.clear();
+                        isViewAll = !isViewAll;
                       });
-                    },
-                    onSubmitted: (String) {
-                      print(controller.searchQueryController.text);
-                    },
+                    }),
+                    child: Text(
+                      isViewAll ? "View top" : "View all",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey[600]),
+                    ),
                   ),
                 ],
               ),
             ),
+            8.heightBox,
             FutureBuilder<QuerySnapshot>(
                 future: controller.getDoctorList(),
                 builder: (BuildContext context,
@@ -134,17 +292,17 @@ class _ChatPageState extends State<SearchDoctorPage> {
                     );
                   } else {
                     var data = snapshot.data?.docs;
-                    print(data!.length
-                        .toString()); // to print the no of Doctors in the Firebase
+                    // print(data!.length
+                    //     .toString()); // to print the no of Doctors in the Firebase
                     return Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
+                      padding: const EdgeInsets.only(left: 18.0, right: 15),
                       child: SizedBox(
-                        height: 135,
+                        height: _height * 0.4,
                         child: ListView.builder(
                             // to show top 3 doctors
                             physics: BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: data?.length ?? 0,
+                            scrollDirection: Axis.vertical,
+                            itemCount: isViewAll ? data?.length ?? 0 : 5,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
                                 onTap: () {
@@ -153,46 +311,102 @@ class _ChatPageState extends State<SearchDoctorPage> {
                                       ));
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.all(5),
+                                  margin: EdgeInsets.only(bottom: 8),
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
                                   height: 100,
-                                  width: 110,
+                                  // width: double.infinity,
                                   decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.grey[300]!, width: 1),
                                       // color: Color(0xFF9CC5FF).withOpacity(0.9),
-                                      color: Color.fromARGB(255, 243, 243, 243),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.black45,
-                                            blurRadius: 5,
-                                            offset: Offset(5, 5))
-                                      ],
+                                      color: Color.fromARGB(255, 255, 255, 255)
+                                          .withOpacity(0.3),
+                                      // boxShadow: [
+                                      //   BoxShadow(
+                                      //       color: Colors.black45,
+                                      //       blurRadius: 5,
+                                      //       offset: Offset(5, 5))
+                                      // ],
                                       borderRadius: BorderRadius.circular(12)),
-                                  child: Column(
+                                  child: Row(
+                                    // mainAxisAlignment:
+                                    //     MainAxisAlignment.spaceAround,
                                     children: [
                                       8.heightBox,
-                                      Image.asset(
-                                        "assets/images/doctor_icon1.png", // show doctor pic
-                                        width: 65.0,
-                                        // color: Colors.white,
-                                        fit: BoxFit.cover,
+                                      CircleAvatar(
+                                        radius: 40,
+                                        backgroundColor: Colors.green[50],
+                                        child: Image.asset(
+                                          "assets/images/doctor_icon1.png", // show doctor pic
+                                        ),
                                       ),
+                                      10.widthBox,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          15.heightBox,
+                                          Text(
+                                            // "Dr. ${data![index]['docName']}",
+                                            data![index]['docName'],
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: 'Inter',
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          // 5.heightBox,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                // data[index]['docCategory'],
+                                                "Physician",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.grey[800]),
+                                              ),
+                                              10.widthBox,
+                                              Text(
+                                                // data[index]['docRating'].toString(),
+                                                "⭐ 4.5",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.grey[800]),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                // data[index]['docRating'].toString(),
+                                                "5+ years",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.grey[800]),
+                                              ),
+                                              10.widthBox,
+                                              Icon(Icons.location_on),
+                                              Text(
+                                                data[index]['docAddress']
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.grey[800]),
+                                              ),
+                                            ],
+                                          ),
+                                          5.heightBox
+                                        ],
+                                      ),
+
                                       // 5.heightBox,
-                                      Text(
-                                        data[index]['docName'],
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      // 5.heightBox,
-                                      Text(
-                                        data[index]['docCategory'],
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.grey[800]),
-                                      ),
-                                      5.heightBox
                                     ],
                                   ),
                                 ),

@@ -25,7 +25,7 @@ class DocInfoBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 8, bottom: 0, top: 5),
+            padding: const EdgeInsets.only(left: 4, bottom: 0, top: 5),
             child: Row(
               children: [
                 icon,
@@ -34,22 +34,22 @@ class DocInfoBox extends StatelessWidget {
                   infoLabel,
                   style: TextStyle(
                       fontSize: 17,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black54,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
                       fontFamily: 'Inter'),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8, right: 0),
+            padding: const EdgeInsets.only(left: 4, right: 0),
             child: Text(
               infoText,
               style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black54,
-                  fontFamily: 'Poppins'),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Inter',
+                  color: Colors.grey[700]),
             ),
           ),
           Padding(
