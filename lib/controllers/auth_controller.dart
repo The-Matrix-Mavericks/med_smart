@@ -85,7 +85,8 @@ class AuthController extends GetxController {
       'userProfession': userProfession,
       'userHeight': userHeight,
       'userID': FirebaseAuth.instance.currentUser?.uid,
-      'userEmail': FirebaseAuth.instance.currentUser?.email
+      'userEmail': FirebaseAuth.instance.currentUser?.email,
+      'date_time': DateTime.now(),
     });
     // if (!userName.isEmpty) {
     //   _showToast(context);

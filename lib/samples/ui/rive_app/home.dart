@@ -4,6 +4,7 @@ import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/samples/ui/rive_app/services/service.dart';
+import 'package:flutter_samples/screens/chat_page/homepage.dart';
 import 'package:flutter_samples/screens/search_doctor/serach_doctor.dart';
 import 'package:flutter_samples/screens/user_health_metrics/inputpage/input_page.dart';
 import 'package:flutter_samples/screens/user_health_metrics/user_health_metrics.dart';
@@ -63,7 +64,7 @@ class _RiveAppHomeState extends State<RiveAppHome>
   Widget _tabBody = Container(color: const Color.fromARGB(255, 255, 255, 255));
   final List<Widget> _screens = [
     const HomeTabView(),
-    ChatPage(),
+    MyHomePage(),
     SearchDoctorPage(),
     AppointmentPage(),
     UserProfilePage()

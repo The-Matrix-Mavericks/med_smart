@@ -51,6 +51,7 @@ dependencies:
   anim_search_bar:
   table_calendar: ^3.0.9
   lottie: ^2.7.0
+  flutter_zoom_drawer: ^3.2.0
   # google_fonts: ^4.0.4
 
 dev_dependencies:

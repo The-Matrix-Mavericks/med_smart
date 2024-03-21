@@ -1,17 +1,17 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+// class ChatPage extends StatefulWidget {
+//   const ChatPage({super.key, required id, required name});
 
-  @override
-  State<ChatPage> createState() => _ChatPageState();
-}
+//   @override
+//   State<ChatPage> createState() => _ChatPageState();
+// }
 
-class _ChatPageState extends State<ChatPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text("Chat Page")),
-    );
-  }
-}
+// class _ChatPageState extends State<ChatPage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(child: Text("Chat Page")),
+//     );
+//   }
+// }
