@@ -46,7 +46,7 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 const Spacer(),
                 StreamBuilder(
-                  stream: firestore.collection('user').doc(widget.id).snapshots(),
+                  stream: firestore.collection('doctor').doc(widget.id).snapshots(),
                   builder: (context,AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
                     return !snapshot.hasData?Container(): Text(
                       'Last seen : ' + DateFormat('hh:mm a').format(snapshot.data!['date_time'].toDate()),
