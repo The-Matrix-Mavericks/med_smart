@@ -59,79 +59,81 @@ class _MyHomePageState extends State<MyHomePage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  margin: const EdgeInsets.all(0),
+                SafeArea(
                   child: Container(
-                    color: Colors.indigo.shade400,
-                    padding: const EdgeInsets.all(8),
-                    height: 160,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 10),
-                          child: Text(
-                            'Recent Users',
-                            style: Styles.h1(),
+                    margin: const EdgeInsets.all(0),
+                    child: Container(
+                      color: Colors.indigo.shade400,
+                      padding: const EdgeInsets.all(8),
+                      height: 160,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 10),
+                            child: Text(
+                              'Recent Users',
+                              style: Styles.h1(),
+                            ),
                           ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          height: 80,
-                          child: StreamBuilder(
-                            stream: firestore.collection('Rooms').snapshots(),
-                            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                              if (!snapshot.hasData) {
-                                return Container();
-                              }
-
-                              final data = snapshot.data!.docs.where((element) => element['users'].toString().contains(FirebaseAuth.instance.currentUser!.uid)).toList();
-                              return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: data.length,
-                                itemBuilder: (context, i) {
-                                  final users = data[i]['users'];
-                                  final friend = users.where((element) => element != FirebaseAuth.instance.currentUser!.uid);
-                                  final user = friend.isNotEmpty ? friend.first : users.where((element) => element == FirebaseAuth.instance.currentUser!.uid).first;
-
-                                  return FutureBuilder(
-                                    future: firestore.collection('doctor').doc(user).get(),
-                                    builder: (context, AsyncSnapshot snap) {
-                                      if (!snap.hasData || !snap.data!.exists) {
-                                        return Container(); // Return an empty container if data doesn't exist
-                                      }
-
-                                      final Map<String, dynamic>? doctorData = snap.data!.data() as Map<String, dynamic>?;
-
-                                      if (doctorData == null || !doctorData.containsKey('docName')) {
-                                        return Container(); // Return an empty container if data doesn't contain 'docName'
-                                      }
-
-                                      return ChatWidgets.circleProfile(
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) {
-                                                return ChatPage(
-                                                  id: user,
-                                                  name: doctorData['docName'],
-                                                );
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        name: doctorData['docName'],
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            },
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            height: 80,
+                            child: StreamBuilder(
+                              stream: firestore.collection('Rooms').snapshots(),
+                              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                }
+                  
+                                final data = snapshot.data!.docs.where((element) => element['users'].toString().contains(FirebaseAuth.instance.currentUser!.uid)).toList();
+                                return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: data.length,
+                                  itemBuilder: (context, i) {
+                                    final users = data[i]['users'];
+                                    final friend = users.where((element) => element != FirebaseAuth.instance.currentUser!.uid);
+                                    final user = friend.isNotEmpty ? friend.first : users.where((element) => element == FirebaseAuth.instance.currentUser!.uid).first;
+                  
+                                    return FutureBuilder(
+                                      future: firestore.collection('doctor').doc(user).get(),
+                                      builder: (context, AsyncSnapshot snap) {
+                                        if (!snap.hasData || !snap.data!.exists) {
+                                          return Container(); // Return an empty container if data doesn't exist
+                                        }
+                  
+                                        final Map<String, dynamic>? doctorData = snap.data!.data() as Map<String, dynamic>?;
+                  
+                                        if (doctorData == null || !doctorData.containsKey('docName')) {
+                                          return Container(); // Return an empty container if data doesn't contain 'docName'
+                                        }
+                  
+                                        return ChatWidgets.circleProfile(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return ChatPage(
+                                                    id: user,
+                                                    name: doctorData['docName'],
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          name: doctorData['docName'],
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

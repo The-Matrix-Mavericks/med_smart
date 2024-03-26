@@ -6,6 +6,7 @@ import 'package:flutter_samples/screens/chat_page/comps/widgets.dart';
 // import 'package:image/comps/styles.dart';
 // import 'package:image/comps/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_samples/screens/chat_page/vediocall.dart';
 
 class ChatPage extends StatefulWidget {
   final String id;
@@ -18,6 +19,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   var roomId;
+  // final callIDTextCtrl=TextEditingController(text:"testCallID");
   @override
   Widget build(BuildContext context) {
     final firestore = FirebaseFirestore.instance;
@@ -28,7 +30,11 @@ class _ChatPageState extends State<ChatPage> {
         title:  Text(widget.name),
         elevation: 0,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+          IconButton(onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return CallPage(callID: roomId.toString());
+            }));
+          }, icon: const Icon(Icons.call))
         ],
       ),
       body: Column(
