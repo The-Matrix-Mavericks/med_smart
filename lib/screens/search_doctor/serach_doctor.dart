@@ -302,7 +302,11 @@ class _ChatPageState extends State<SearchDoctorPage> {
                             // to show top 3 doctors
                             physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
-                            itemCount: isViewAll ? data?.length ?? 0 : 5,
+                            itemCount: isViewAll
+                                ? data?.length ?? 0
+                                : data!.length <= 5
+                                    ? data!.length
+                                    : 5,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
                                 onTap: () {
