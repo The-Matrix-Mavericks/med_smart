@@ -239,7 +239,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   child: ListView(
                 children: [
                   GestureDetector(
-                    // onTap: () => Get.to(() => UserProfileEditPage()),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProfilePage()));
+                    },
                     child: Card(
                       margin:
                           const EdgeInsets.only(left: 35, right: 35, bottom: 5),
