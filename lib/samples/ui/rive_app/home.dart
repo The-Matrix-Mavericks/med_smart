@@ -21,7 +21,6 @@ import 'package:flutter_samples/samples/ui/rive_app/assets.dart' as app_assets;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../screens/appointment/appointment.dart';
-import '../../../screens/chat_page/char_page.dart';
 
 // Common Tab Scene for the tabs other than 1st one, showing only tab name in center
 Widget commonTabScene(String tabName) {

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/screens/chat_page/comps/widgets.dart';
 // import 'package:image/comps/widgets.dart';
 import 'package:intl/intl.dart';
@@ -48,8 +49,8 @@ class _AnimatedDialogState extends State<AnimatedDialog> {
           width: widget.width,
           decoration: BoxDecoration(
               color: widget.width == 0
-                  ? Colors.indigo.withOpacity(0)
-                  : Colors.indigo.shade400,
+                  ? Colors.white.withOpacity(0)
+                  : Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(widget.width == 0 ? 100 : 0),
                 bottomRight: Radius.circular(widget.width == 0 ? 100 : 0),
@@ -93,10 +94,10 @@ class _AnimatedDialogState extends State<AnimatedDialog> {
                                   return ListView.builder(
                                     itemCount: data.length,
                                     itemBuilder: (context, i) {
-                                      Timestamp time =
-                                          data[i]['date_time'];
+                                      Timestamp time = data[i]['date_time'];
                                       return ChatWidgets.card(
                                         title: data[i]['docName'],
+                                        index: i,
                                         time: DateFormat('EEE hh:mm')
                                             .format(time.toDate()),
                                         onTap: () {
@@ -106,6 +107,7 @@ class _AnimatedDialogState extends State<AnimatedDialog> {
                                                 return ChatPage(
                                                   id: data[i].id.toString(),
                                                   name: data[i]['docName'],
+                                                  index: i,
                                                 );
                                               },
                                             ),
