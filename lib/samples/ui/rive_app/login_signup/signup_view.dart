@@ -29,6 +29,7 @@ class _SignUpViewState extends State<SignUpView> {
   signUp() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text, password: _passController.text);
+    setState(() {});
     Get.offAll(() => Wrapper());
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString('email', _emailController.text.toString());
@@ -71,7 +72,7 @@ class _SignUpViewState extends State<SignUpView> {
     setState(() {
       _isLoading = true;
     });
-
+    print(_isLoading);
     bool isEmailValid = _emailController.text.trim().isNotEmpty;
     bool isPassValid = _passController.text.trim().isNotEmpty;
     bool isConfirmPassValid = _cofirmPassController.text.trim().isNotEmpty;
@@ -79,7 +80,8 @@ class _SignUpViewState extends State<SignUpView> {
         isPassValid &&
         isConfirmPassValid &&
         _passController.text.trim() == _cofirmPassController.text.trim();
-
+    print("All Working");
+    print(" Is valid or not  : ${isValid}");
     Future.delayed(const Duration(seconds: 1), () {
       isValid ? _successAnim.fire() : _errorAnim.fire();
     });
@@ -92,8 +94,8 @@ class _SignUpViewState extends State<SignUpView> {
     });
 
     if (isValid) {
-      Future.delayed(const Duration(seconds: 4), () {
-        signUp();
+      Future.delayed(const Duration(seconds: 4), () async {
+        await signUp();
         VxToast.show(context,
             msg: "Signup Successful ✅",
             textSize: 18,
@@ -253,6 +255,8 @@ class _SignUpViewState extends State<SignUpView> {
                               ],
                             ),
                             onPressed: () {
+                              print("Singup Button Tapped");
+                              print(_isLoading);
                               if (!_isLoading) login();
                               // Navigator.push(
                               //     context,
