@@ -167,6 +167,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ElevatedButton(
                     onPressed: () {
                       updateUserProfile();
+                      Navigator.pop(context);
                     },
                     child: Text('Save'),
                   ),
