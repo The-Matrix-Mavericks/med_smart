@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/controllers/user_data_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onboarding_view.dart';
+import 'package:flutter_samples/screens/user_profile/medical_form.dart';
+import 'package:flutter_samples/screens/user_profile/medical_status.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -239,7 +241,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   child: ListView(
                 children: [
                   GestureDetector(
-                    // onTap: () => Get.to(() => UserProfileEditPage()),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProfilePage()));
+                    },
                     child: Card(
                       margin:
                           const EdgeInsets.only(left: 35, right: 35, bottom: 5),
@@ -253,6 +260,39 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ),
                         title: Text(
                           'Edit Profile',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MedicalRecordsScreen()));
+                    },
+                    child: Card(
+                      margin:
+                          const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                      color: Colors.amber[50],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const ListTile(
+                        leading: Icon(
+                          Icons.edit,
+                          color: Colors.black54,
+                        ),
+                        title: Text(
+                          'Medical Records',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
