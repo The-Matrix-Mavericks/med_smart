@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_samples/constants/color.dart';
+import 'package:get/get.dart';
 
 class EditProfilePage extends StatefulWidget {
   EditProfilePage({Key? key}) : super(key: key);
@@ -88,7 +90,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        await FirebaseFirestore.instance.collection('user').doc(FirebaseAuth.instance.currentUser?.uid).update({
+        await FirebaseFirestore.instance
+            .collection('user')
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .update({
           'userAbout': _aboutController.text,
           'userAddress': _addressController.text,
           'userAge': _ageController.text,
@@ -110,70 +115,97 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Edit Profile'),
-      ),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Padding(
-              padding: EdgeInsets.all(20.0),
-              child: ListView(
-                children: [
-                  TextField(
-                    
-                    controller: _aboutController,
-                    decoration: InputDecoration(labelText: 'About'),
-                    
-                  ),
-                  TextField(
-                    controller: _addressController,
-                    decoration: InputDecoration(labelText: 'Address'),
-                  ),
-                  TextField(
-                    controller: _ageController,
-                    decoration: InputDecoration(labelText: 'Age'),
-                  ),
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(labelText: 'Email'),
-                  ),
-                  TextField(
-                    controller: _genderController,
-                    decoration: InputDecoration(labelText: 'Gender'),
-                  ),
-                  TextField(
-                    controller: _heightController,
-                    decoration: InputDecoration(labelText: 'Height'),
-                  ),
-                  TextField(
-                    controller: _nameController,
-                    decoration: InputDecoration(labelText: 'Name'),
-                  ),
-                  TextField(
-                    controller: _phoneController,
-                    decoration: InputDecoration(labelText: 'Phone'),
-                  ),
-                  TextField(
-                    controller: _professionController,
-                    decoration: InputDecoration(labelText: 'Profession'),
-                  ),
-                  TextField(
-                    controller: _weightController,
-                    decoration: InputDecoration(labelText: 'Weight'),
-                  ),
-                  SizedBox(height: 20.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      updateUserProfile();
-                      Navigator.pop(context);
-                    },
-                    child: Text('Save'),
-                  ),
-                ],
+        appBar: AppBar(
+          title: Text("Your Profile",
+              style: TextStyle(
+                  fontSize: 24, fontFamily: 'Poppins', color: primaryColor)),
+          centerTitle: true,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios_new),
+              onPressed: () => Get.back()),
+          elevation: 0,
+        ),
+        body: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                child: ListView(
+                  children: [
+                    TextField(
+                      controller: _aboutController,
+                      decoration: InputDecoration(labelText: 'About',labelStyle: TextStyle()),
+                    ),
+                    TextField(
+                      controller: _addressController,
+                      decoration: InputDecoration(labelText: 'Address'),
+                    ),
+                    TextField(
+                      controller: _ageController,
+                      decoration: InputDecoration(labelText: 'Age'),
+                    ),
+                    TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(labelText: 'Email'),
+                    ),
+                    TextField(
+                      controller: _genderController,
+                      decoration: InputDecoration(labelText: 'Gender'),
+                    ),
+                    TextField(
+                      controller: _heightController,
+                      decoration: InputDecoration(labelText: 'Height'),
+                    ),
+                    TextField(
+                      controller: _nameController,
+                      decoration: InputDecoration(labelText: 'Name'),
+                    ),
+                    TextField(
+                      controller: _phoneController,
+                      decoration: InputDecoration(labelText: 'Phone'),
+                    ),
+                    TextField(
+                      controller: _professionController,
+                      decoration: InputDecoration(labelText: 'Profession'),
+                    ),
+                    TextField(
+                      controller: _weightController,
+                      decoration: InputDecoration(labelText: 'Weight'),
+                    ),
+                    SizedBox(height: 20.0),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     updateUserProfile();
+                    //     Navigator.pop(context);
+                    //   },
+                    //   child: Text('Save'),
+                    // ),
+                  ],
+                ),
+              ),
+        bottomNavigationBar: GestureDetector(
+          onTap: () {
+            updateUserProfile();
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(0),
+                color: primaryColor,
+              ),
+              height: 60.0,
+              child: Center(
+                child: Text(
+                  "Save",
+                  style: TextStyle(
+                      fontSize: 25, color: Colors.white, fontFamily: 'Poppins'),
+                ),
               ),
             ),
-    );
+          ),
+        ));
   }
 }

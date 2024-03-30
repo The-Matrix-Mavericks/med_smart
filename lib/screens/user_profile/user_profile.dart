@@ -6,6 +6,8 @@ import 'package:flutter_samples/controllers/user_data_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onboarding_view.dart';
 import 'package:flutter_samples/screens/user_profile/medical_form.dart';
 import 'package:flutter_samples/screens/user_profile/medical_status.dart';
+import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
+import './avatar.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -53,7 +55,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
     var controller = Get.put(UserDataController());
     return Scaffold(
       body: Container(
-        color: Colors.white54,
+        color: Colors.white,
         child:
             // Obx(
             //   () => controller.isLoading.value
@@ -64,47 +66,26 @@ class _UserProfilePageState extends State<UserProfilePage> {
             Column(
           children: [
             const SizedBox(
-              height: 100,
+              height: 80,
             ),
-            // const ListTile(
-            //   leading: Icon(Icons.arrow_back),
-            //   trailing: Icon(Icons.menu),
-            // ),
-            CircleAvatar(
-              maxRadius: 65,
-              backgroundImage: AssetImage("assets/images/man.png"),
+            GestureDetector(
+              onTap: () => Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => NewPage())),
+              child: FluttermojiCircleAvatar(
+                backgroundColor: Colors.grey[200],
+                radius: 60,
+              ),
             ),
-            // const SizedBox(
-            //   height: 15,
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: const [
-            //     CircleAvatar(
-            //       backgroundImage: AssetImage("assets/images/avatar.webp"),
-            //     ),
-            //     SizedBox(
-            //       width: 15,
-            //     ),
-            //     CircleAvatar(
-            //       backgroundImage: AssetImage("assets/images/avatar.webp"),
-            //     ),
-            //     SizedBox(
-            //       width: 15,
-            //     ),
-            //     CircleAvatar(
-            //       backgroundImage: AssetImage("assets/images/avatar.webp"),
-            //     ),
-            //     SizedBox(
-            //       width: 15,
-            //     ),
-            //     CircleAvatar(
-            //       backgroundImage: AssetImage("assets/images/avatar.webp"),
-            //     )
-            //   ],
+            // Container(
+            //   height: 35,
+            //   child: IconButton(
+            //     icon: const Icon(Icons.edit),
+            //     onPressed: () => Navigator.push(context,
+            //         new MaterialPageRoute(builder: (context) => NewPage())),
+            //   ),
             // ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             StreamBuilder(
                 stream: FirebaseFirestore.instance
@@ -255,11 +236,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           borderRadius: BorderRadius.circular(30)),
                       child: const ListTile(
                         leading: Icon(
-                          Icons.edit,
+                          Icons.person,
                           color: Colors.black54,
                         ),
                         title: Text(
-                          'Edit Profile',
+                          'Your Profile',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -283,12 +264,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     child: Card(
                       margin:
                           const EdgeInsets.only(left: 35, right: 35, bottom: 5),
-                      color: Colors.amber[50],
+                      color: Colors.indigo[50],
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
                       child: const ListTile(
                         leading: Icon(
-                          Icons.edit,
+                          Icons.notes,
                           color: Colors.black54,
                         ),
                         title: Text(

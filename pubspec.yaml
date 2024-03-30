@@ -54,6 +54,7 @@ dependencies:
   flutter_zoom_drawer: ^3.2.0
   # google_fonts: ^4.0.4
   zego_uikit_prebuilt_call: ^4.5.1
+  fluttermoji: ^1.0.2
 
 dev_dependencies:
   flutter_test:

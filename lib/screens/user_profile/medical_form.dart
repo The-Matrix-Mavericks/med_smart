@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/screens/chat_page/vediocall.dart';
+import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/screens/user_profile/user_profile.dart';
 
 class MedicalForm extends StatefulWidget {
@@ -16,6 +16,14 @@ class _MedicalFormState extends State<MedicalForm> {
   final TextEditingController _ongoingMedicineController =
       TextEditingController();
   final TextEditingController _medicalConditionController =
+      TextEditingController();
+  final TextEditingController controller4 =
+      TextEditingController();
+  final TextEditingController controller5 =
+      TextEditingController();
+  final TextEditingController controller6 =
+      TextEditingController();
+  final TextEditingController controller7 =
       TextEditingController();
 
   List<String> _selectedDiagnoses = [];
@@ -75,6 +83,10 @@ class _MedicalFormState extends State<MedicalForm> {
         "clinicalIssues": _clinicalIssuesController!.text,
         'ongoing_medicine': _ongoingMedicineController.text,
         'condition': _medicalConditionController.text,
+        'surgical_history': controller4.text,
+        'prescription': controller5.text,
+        'smoking': controller6.text,
+        'allergies': controller7.text,
         'timestamp': DateTime.now(),
       });
 
@@ -83,10 +95,7 @@ class _MedicalFormState extends State<MedicalForm> {
       _ongoingMedicineController.clear();
       _medicalConditionController.clear();
       // SnackBar(content: Text("Details Updated"));
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => UserProfilePage()));
+      Navigator.pop(context);
     }
   }
 
@@ -94,7 +103,13 @@ class _MedicalFormState extends State<MedicalForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Medical Status'),
+          title: Text("Medical Record",
+              style: TextStyle(
+                  fontSize: 24, fontFamily: 'Poppins', color: primaryColor)),
+          centerTitle: true,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios_new),
+              onPressed: () => Navigator.pop(context)),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -105,15 +120,15 @@ class _MedicalFormState extends State<MedicalForm> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Column(
                           children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child:
-                                  Text('Clinical Issues', style: TextStyle()),
-                            ),
-                            const SizedBox(height: 10),
+                            // Align(
+                            //   alignment: Alignment.centerLeft,
+                            //   child:
+                            //       Text('Clinical Issues', style: TextStyle()),
+                            // ),
+                            // const SizedBox(height: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
@@ -133,7 +148,7 @@ class _MedicalFormState extends State<MedicalForm> {
                                           ? Icon(
                                               Icons.arrow_drop_up_outlined,
                                               color: _showDropdown
-                                                  ? Colors.blue
+                                                  ? primaryColor
                                                   : Colors.black,
                                             )
                                           : Icon(
@@ -148,6 +163,7 @@ class _MedicalFormState extends State<MedicalForm> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         border: Border.all(color: Colors.white),
+                                        color: Colors.white,
                                         boxShadow: [
                                           BoxShadow(
                                             color: Color.fromARGB(
@@ -203,12 +219,12 @@ class _MedicalFormState extends State<MedicalForm> {
                                                 width: 180,
                                                 height: 40,
                                                 decoration: BoxDecoration(
-                                                    color: Colors.blue,
+                                                    color: primaryColor,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
                                                 child: Text(
-                                                  "OK",
+                                                  "Done",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -239,7 +255,8 @@ class _MedicalFormState extends State<MedicalForm> {
                             TextFormField(
                               controller: _ongoingMedicineController,
                               decoration: InputDecoration(
-                                labelText: 'Ongoing Medicine',
+                                labelText:
+                                    'Do you have any ongoing meidical program?',
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -254,7 +271,71 @@ class _MedicalFormState extends State<MedicalForm> {
                             TextFormField(
                               controller: _medicalConditionController,
                               decoration: InputDecoration(
-                                labelText: 'Medical Condition',
+                                labelText:
+                                    'Do you have any ongoing Medical Condition? ',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your medical condition';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: controller4,
+                              decoration: InputDecoration(
+                                labelText:
+                                    'What Are Your Medical and Surgical Histories?',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your medical condition';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: controller5,
+                              decoration: InputDecoration(
+                                labelText:
+                                    'What Prescription and Non-Prescription Medications Do You Take?',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your medical condition';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: controller6,
+                              decoration: InputDecoration(
+                                labelText:
+                                    'What is Your Smoking, Alcohol, and Illicit Drug Use History?',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your medical condition';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: controller7,
+                              decoration: InputDecoration(
+                                labelText: 'What Allergies Do You Have?',
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -264,15 +345,35 @@ class _MedicalFormState extends State<MedicalForm> {
                               },
                             ),
                             SizedBox(height: 16.0),
-                            ElevatedButton(
-                              onPressed: _submitForm,
-                              child: Text('Submit'),
-                            ),
+                            // ElevatedButton(
+                            //   onPressed: _submitForm,
+                            //   child: Text('Submit'),
+                            // ),
                           ],
                         ),
                       ),
                     ]),
               )),
+        ),
+        bottomNavigationBar: GestureDetector(
+          onTap: () => _submitForm(),
+          child: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(0),
+                color: primaryColor,
+              ),
+              height: 60.0,
+              child: Center(
+                child: Text(
+                  "Submit",
+                  style: TextStyle(
+                      fontSize: 20, color: Colors.white, fontFamily: 'Poppins'),
+                ),
+              ),
+            ),
+          ),
         ));
   }
 }
