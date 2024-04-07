@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_samples/constants/app_colors.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/controllers/doctor_screen_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/custom_text_field.dart';
@@ -168,23 +169,27 @@ class _ChatPageState extends State<SearchDoctorPage> {
             Padding(
               padding: const EdgeInsets.only(
                   top: 0.0, right: 20, left: 18, bottom: 15),
-              child: Container(
-                padding: EdgeInsets.only(left: 20, top: 5),
-                decoration: BoxDecoration(
-                    color: Color(0xFF9CC5FF).withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(15)),
-                height: _height * 0.08,
-                width: double.infinity,
-                child: TextField(
-                  decoration: InputDecoration(
-                      icon: Icon(
-                        FontAwesomeIcons.search,
-                        color: Colors.grey[600],
-                      ),
-                      border: InputBorder.none,
-                      hintText: "How can we help you?",
-                      hintStyle: textStyle1.copyWith(
-                          color: Colors.grey[600], fontSize: 16)),
+              child: Material(
+                elevation: 5,
+                borderRadius: BorderRadius.circular(15),
+                child: Container(
+                  padding: EdgeInsets.only(left: 20, top: 5),
+                  decoration: BoxDecoration(
+                      color: Color(0xFF9CC5FF).withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(15)),
+                  height: _height * 0.08,
+                  width: double.infinity,
+                  child: TextField(
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          FontAwesomeIcons.search,
+                          color: Colors.grey[600],
+                        ),
+                        border: InputBorder.none,
+                        hintText: "How can we help you?",
+                        hintStyle: textStyle1.copyWith(
+                            color: Colors.grey[600], fontSize: 16)),
+                  ),
                 ),
               ),
             ),
@@ -192,7 +197,7 @@ class _ChatPageState extends State<SearchDoctorPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: SizedBox(
-                height: 50,
+                height: 52,
                 child: ListView.builder(
                     // to show top 3 doctors
                     physics: BouncingScrollPhysics(),
@@ -206,42 +211,46 @@ class _ChatPageState extends State<SearchDoctorPage> {
                         //       ));
                         // },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                                // border: Border.all(
-                                //     color: Colors.grey[200]!, width: 2),
-                                // color: Color(0xFF9CC5FF).withOpacity(0.9),
-                                color: Color.fromARGB(255, 233, 227, 255)
-                                    .withOpacity(0.7),
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //       color: Colors.black45,
-                                //       blurRadius: 5,
-                                //       offset: Offset(5, 5))
-                                // ],
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Row(
-                              children: [
-                                // 8.heightBox,
-                                Image.asset(
-                                  icons[index], // show doctor pic
-                                  height: 40.0,
-                                  // color: Colors.white,
-                                  fit: BoxFit.cover,
-                                ),
-                                5.widthBox,
-                                Text(
-                                  iconsLable[index],
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey[800]),
-                                ),
-                                // 5.heightBox
-                              ],
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 7),
+                          child: Material(
+                            elevation: 5,
+                            borderRadius: BorderRadius.circular(12),
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  // border: Border.all(
+                                  //     color: Colors.grey[200]!, width: 2),
+                                  // color: Color(0xFF9CC5FF).withOpacity(0.9),
+                                  color: AppColors.grey.withOpacity(0.1),
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //       color: Colors.black45,
+                                  //       blurRadius: 5,
+                                  //       offset: Offset(5, 5))
+                                  // ],
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: Row(
+                                children: [
+                                  // 8.heightBox,
+                                  Image.asset(
+                                    icons[index], // show doctor pic
+                                    height: 40.0,
+                                    // color: Colors.white,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  5.widthBox,
+                                  Text(
+                                    iconsLable[index],
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey[800]),
+                                  ),
+                                  // 5.heightBox
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -312,106 +321,126 @@ class _ChatPageState extends State<SearchDoctorPage> {
                                 onTap: () {
                                   Get.to(() => DoctorProfileView(
                                         doc: data![index],
+                                        image: docImages[index],
                                       ));
                                 },
-                                child: Container(
-                                  margin: EdgeInsets.only(bottom: 8),
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  height: 100,
-                                  // width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.grey[300]!, width: 1),
-                                      // color: Color(0xFF9CC5FF).withOpacity(0.9),
-                                      color: Color.fromARGB(255, 255, 255, 255)
-                                          .withOpacity(0.3),
-                                      // boxShadow: [
-                                      //   BoxShadow(
-                                      //       color: Colors.black45,
-                                      //       blurRadius: 5,
-                                      //       offset: Offset(5, 5))
-                                      // ],
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: Row(
-                                    // mainAxisAlignment:
-                                    //     MainAxisAlignment.spaceAround,
-                                    children: [
-                                      8.heightBox,
-                                      CircleAvatar(
-                                        radius: 40,
-                                        backgroundColor: Colors.green[50],
-                                        child: Image.asset(
-                                          "assets/images/doctor_icon1.png", // show doctor pic
-                                        ),
-                                      ),
-                                      10.widthBox,
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: Material(
+                                    elevation: 4,
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Container(
+                                      // margin: EdgeInsets.only(bottom: 8),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      height: 100,
+                                      // width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          // border: Border.all(
+                                          //     color: Colors.grey[300]!, width: 1),
+                                          // color: Color(0xFF9CC5FF).withOpacity(0.9),
+                                          color:
+                                              Colors.blue[50]!.withOpacity(0.7),
+                                          // boxShadow: [
+                                          //   BoxShadow(
+                                          //       color: Colors.black45,
+                                          //       blurRadius: 5,
+                                          //       offset: Offset(5, 5))
+                                          // ],
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: Row(
+                                        // mainAxisAlignment:
+                                        //     MainAxisAlignment.spaceAround,
                                         children: [
-                                          15.heightBox,
-                                          Text(
-                                            // "Dr. ${data![index]['docName']}",
-                                            data![index]['docName'],
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontFamily: 'Inter',
-                                                fontWeight: FontWeight.bold),
+                                          8.heightBox,
+                                          CircleAvatar(
+                                            radius: 40,
+                                            backgroundColor: Colors.blue[100],
+                                            child: Image.asset(
+                                              docImages[
+                                                  index], // show doctor pic
+                                            ),
                                           ),
+                                          10.widthBox,
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              15.heightBox,
+                                              Text(
+                                                // "Dr. ${data![index]['docName']}",
+                                                data![index]['docName'],
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              // 5.heightBox,
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    // data[index]['docCategory'],
+                                                    "Physician",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            Colors.grey[800]),
+                                                  ),
+                                                  10.widthBox,
+                                                  Text(
+                                                    // data[index]['docRating'].toString(),
+                                                    "⭐ 4.5",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            Colors.grey[800]),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    // data[index]['docRating'].toString(),
+                                                    "5+ years",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            Colors.grey[800]),
+                                                  ),
+                                                  10.widthBox,
+                                                  Icon(Icons.location_on),
+                                                  Text(
+                                                    data[index]['docAddress']
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            Colors.grey[800]),
+                                                  ),
+                                                ],
+                                              ),
+                                              5.heightBox
+                                            ],
+                                          ),
+
                                           // 5.heightBox,
-                                          Row(
-                                            children: [
-                                              Text(
-                                                // data[index]['docCategory'],
-                                                "Physician",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontFamily: 'Inter',
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.grey[800]),
-                                              ),
-                                              10.widthBox,
-                                              Text(
-                                                // data[index]['docRating'].toString(),
-                                                "⭐ 4.5",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontFamily: 'Inter',
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.grey[800]),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                // data[index]['docRating'].toString(),
-                                                "5+ years",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontFamily: 'Inter',
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.grey[800]),
-                                              ),
-                                              10.widthBox,
-                                              Icon(Icons.location_on),
-                                              Text(
-                                                data[index]['docAddress']
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontFamily: 'Inter',
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.grey[800]),
-                                              ),
-                                            ],
-                                          ),
-                                          5.heightBox
                                         ],
                                       ),
-
-                                      // 5.heightBox,
-                                    ],
+                                    ),
                                   ),
                                 ),
                               );
@@ -425,4 +454,17 @@ class _ChatPageState extends State<SearchDoctorPage> {
       ),
     );
   }
+
+  List<String> docImages = [
+    "assets/images/doctor.png",
+    "assets/images/doctor_4.png",
+    "assets/images/doctor_3.png",
+    "assets/images/doctor_1.png",
+    "assets/images/doctor_5.png",
+    "assets/images/doctor.png",
+    "assets/images/doctor_4.png",
+    "assets/images/doctor_3.png",
+    "assets/images/doctor_1.png",
+    "assets/images/doctor_5.png",
+  ];
 }

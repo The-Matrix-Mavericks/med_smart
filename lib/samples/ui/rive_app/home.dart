@@ -63,8 +63,8 @@ class _RiveAppHomeState extends State<RiveAppHome>
   Widget _tabBody = Container(color: const Color.fromARGB(255, 255, 255, 255));
   final List<Widget> _screens = [
     const HomeTabView(),
-    MyHomePage(),
     SearchDoctorPage(),
+    MyHomePage(),
     AppointmentPage(),
     UserProfilePage()
   ];

@@ -54,7 +54,10 @@ class _VCardState extends State<VCard> {
                 child: Text(
                   widget.course.title,
                   style: const TextStyle(
-                      fontSize: 24, fontFamily: "Poppins", color: Colors.white),
+                      fontSize: 24,
+                      fontFamily: "Poppins",
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(height: 8),

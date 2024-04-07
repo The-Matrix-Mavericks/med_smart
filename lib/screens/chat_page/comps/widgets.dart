@@ -8,11 +8,24 @@ import 'package:flutter_samples/screens/chat_page/comps/styles.dart';
 // import 'package:image/comps/animated-dialog.dart';
 // import 'package:image/comps/styles.dart';
 
+// List<String> docImages = [
+//   'assets/images/doc1.png',
+//   'assets/images/doc2.jpg',
+//   'assets/images/doc3.jpg',
+//   'assets/images/doc4.jpg',
+// ];
+
 List<String> docImages = [
-  'assets/images/doc1.png',
-  'assets/images/doc2.jpg',
-  'assets/images/doc3.jpg',
-  'assets/images/doc4.jpg',
+  "assets/images/doctor.png",
+  "assets/images/doctor_4.png",
+  "assets/images/doctor_3.png",
+  "assets/images/doctor_1.png",
+  "assets/images/doctor_5.png",
+  "assets/images/doctor.png",
+  "assets/images/doctor_4.png",
+  "assets/images/doctor_3.png",
+  "assets/images/doctor_1.png",
+  "assets/images/doctor_5.png",
 ];
 
 // List<String> docImages = [
@@ -35,7 +48,7 @@ class ChatWidgets {
           leading: Padding(
             padding: EdgeInsets.all(0.0),
             child: CircleAvatar(
-                backgroundColor: Colors.grey[700],
+                backgroundColor: Colors.blue[100],
                 // child: Image.asset(docImages[index]),
                 backgroundImage: AssetImage(docImages[index])),
           ),
@@ -233,7 +246,7 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 12.0, right: 12, bottom: 5),
+      padding: const EdgeInsets.only(left: 12.0, right: 12, bottom: 2, top: 5),
       child: Column(
         crossAxisAlignment:
             user ? CrossAxisAlignment.end : CrossAxisAlignment.start,

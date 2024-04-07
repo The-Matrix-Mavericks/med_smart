@@ -317,11 +317,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     MaterialPageRoute(
                                                       builder: (context) {
                                                         return ChatPage(
-                                                          id: user,
-                                                          name: doctorData[
-                                                              'docName'],
-                                                          index:i
-                                                        );
+                                                            id: user,
+                                                            name: doctorData[
+                                                                'docName'],
+                                                            index: i);
                                                       },
                                                     ),
                                                   );

@@ -3,14 +3,29 @@ import 'package:flutter_samples/constants/color.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+List<String> docImages = [
+  "assets/images/doctor.png",
+  "assets/images/doctor_4.png",
+  "assets/images/doctor_3.png",
+  "assets/images/doctor_1.png",
+  "assets/images/doctor_5.png",
+  "assets/images/doctor.png",
+  "assets/images/doctor_4.png",
+  "assets/images/doctor_3.png",
+  "assets/images/doctor_1.png",
+  "assets/images/doctor_5.png",
+];
+
 class AppointmentCard extends StatelessWidget {
   AppointmentCard(
       {super.key,
       required this.appDate,
       required this.appDay,
+      required this.index,
       required this.appTime,
       required this.appWith});
   String appDay, appDate, appTime, appWith;
+  int index;
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +71,9 @@ class AppointmentCard extends StatelessWidget {
                       style: TextStyle(color: Colors.grey[700], fontSize: 16),
                     ),
                     trailing: CircleAvatar(
-                      radius: 30,
-                      backgroundImage: AssetImage("assets/images/doc1.png"),
+                      radius: 35,
+                      backgroundColor: Colors.cyan[50],
+                      backgroundImage: AssetImage(docImages[index]),
                     ),
                   ),
                   Padding(
@@ -67,7 +83,7 @@ class AppointmentCard extends StatelessWidget {
                     child: Divider(
                       thickness: 1,
                       height: 20,
-                      color: Colors.grey[500],
+                      color: Colors.white,
                     ),
                   ),
                   Row(

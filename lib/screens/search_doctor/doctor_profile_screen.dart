@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_samples/constants/app_styles.dart';
+import 'package:flutter_samples/constants/app_colors.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/constants/custom_button.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/doc_info_field.dart';
+import 'package:flutter_samples/samples/ui/rive_app/components/progress_widget.dart';
+import 'package:flutter_samples/samples/ui/rive_app/components/rating_stars.dart';
 import 'package:flutter_samples/screens/search_doctor/book_appointment_screen.dart';
 import 'package:flutter_samples/screens/user_health_metrics/utils/data_container.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,294 +15,369 @@ import 'package:velocity_x/velocity_x.dart';
 
 class DoctorProfileView extends StatelessWidget {
   final DocumentSnapshot doc;
-  DoctorProfileView({super.key, required this.doc});
+  final String image;
+  DoctorProfileView({super.key, required this.doc, required this.image});
 
   @override
   Widget build(BuildContext context) {
     var _height = MediaQuery.of(context).size.height;
     var _width = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF9CC5FF),
         appBar: AppBar(
-          title: Text("Doctor Details",
-              style: TextStyle(
-                  fontSize: 24, fontFamily: 'Poppins', color: kTextColor)),
-          centerTitle: true,
+          // title: Text("Doctor Details",
+          //     style: TextStyle(
+          //         fontSize: 24, fontFamily: 'Poppins', color: kTextColor)),
+          // centerTitle: true,
+          backgroundColor: Color(0xFF9CC5FF),
           leading: IconButton(
               icon: Icon(Icons.arrow_back_ios_new),
               onPressed: () => Get.back()),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.blue[200],
-                      child: Image.asset("assets/images/doctor_icon1.png"),
-                    ),
-                    Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                            height: 2, width: 100, color: Colors.grey)),
-                  ],
-                ),
-                15.heightBox,
-                Text(
-                  doc['docName'],
-                  style: TextStyle(fontSize: 24, fontFamily: 'Poppins'),
-                ),
-                0.heightBox,
-                Text(
-                  "Physician",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Inter',
-                      color: Colors.grey[700]),
-                ),
-                8.heightBox,
-                SizedBox(
-                  width: _width * 0.75,
-                  child: const Text(
-                    'MBBS (International Medical University, Malaysia), MRCP (Royal College of Physicians, United Kingdom)',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontFamily: 'Inter',
-                      fontSize: 15,
-                    ),
-                    softWrap: true,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                8.heightBox,
-                SizedBox(
-                  width: _width * 0.75,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.local_hospital),
-                      4.widthBox,
-                      const Text(
-                        'Apex Multispeciality Hospital',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                        ),
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-                10.heightBox,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: _height * 0.12,
-                      width: _width * 0.28,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFF9CC5FF).withOpacity(0.6),
-                                Color.fromARGB(255, 40, 76, 255)
-                                    .withOpacity(0.3)
-                              ]),
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Patients',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              // fontFamily: 'Poppins',
-                              fontSize: 18,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                          5.heightBox,
-                          Text(
-                            '154',
-                            style: TextStyle(
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: _height * 0.12,
-                      width: _width * 0.28,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFF9CC5FF).withOpacity(0.6),
-                                Color.fromARGB(255, 40, 76, 255)
-                                    .withOpacity(0.3)
-                              ]),
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Experience',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              // fontFamily: 'Poppins',
-                              fontSize: 18,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                          5.heightBox,
-                          Text(
-                            '10+ years',
-                            style: TextStyle(
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: _height * 0.12,
-                      width: _width * 0.28,
-                      decoration: BoxDecoration(
-                          // color: Color.fromARGB(255, 236, 225, 255),
-                          gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFF9CC5FF).withOpacity(0.6),
-                                Color.fromARGB(255, 40, 76, 255)
-                                    .withOpacity(0.3)
-                              ]),
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Ratings',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              // fontFamily: 'Poppins',
-                              fontSize: 18,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                          5.heightBox,
-                          Text(
-                            '4.5',
-                            style: TextStyle(
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                            ),
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // 10.widthBox,
-                  ],
-                ),
-
-                15.heightBox,
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "About",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          color: Colors.black),
-                    ),
-                  ),
-                ),
-                4.heightBox,
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      doc['docAbout'],
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Inter',
-                          color: Colors.grey[700]),
-                    ),
-                  ),
-                ),
-
-                10.heightBox,
-                Container(
-                  padding: EdgeInsets.all(0),
-                  color: AppColors.whiteColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // DocInfoBox(
-                      //     infoLabel: "Name",
-                      //     infoText: doc['docName'],
-                      //     icon: iconList[0]),
-                      DocInfoBox(
-                          infoLabel: "Email",
-                          infoText: doc['docEmail'],
-                          icon: iconList[1]),
-                      DocInfoBox(
-                          infoLabel: "Phone",
-                          infoText: doc['docPhone'],
-                          icon: iconList[2]),
-                      DocInfoBox(
-                          infoLabel: "Address",
-                          infoText: doc['docAddress'],
-                          icon: iconList[3]),
-                      DocInfoBox(
-                          infoLabel: "Services",
-                          infoText: doc['docServices'],
-                          icon: iconList[5]),
-                      DocInfoBox(
-                          infoLabel: "Category",
-                          infoText: doc['docCategory'],
-                          icon: iconList[6]),
-                      DocInfoBox(
-                          infoLabel: "Timing",
-                          infoText: doc['docTiming'],
-                          icon: iconList[7]),
-                    ],
-                  ),
-                ),
-                // Spacer(),
-              ],
+        body: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Image.asset(
+                image,
+                height: MediaQuery.of(context).size.height * .37,
+                fit: BoxFit.fitHeight,
+              ),
             ),
-          ),
+            DraggableScrollableSheet(
+              maxChildSize: .8,
+              initialChildSize: .6,
+              minChildSize: .6,
+              builder: (context, scrollController) {
+                return Container(
+                  height: _height * 0.5,
+                  // padding: EdgeInsets.only(
+                  //     left: 19,
+                  //     right: 19,
+                  //     top: 16), //symmetric(horizontal: 19, vertical: 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      controller: scrollController,
+                      child: Column(
+                        children: [
+                          // Column(
+                          //   children: [
+                          //     CircleAvatar(
+                          //       radius: 50,
+                          //       backgroundColor: Colors.blue[200],
+                          //       child: Image.asset(image),
+                          //     ),
+                          //     Align(
+                          //         alignment: Alignment.center,
+                          //         child: Container(
+                          //             height: 2,
+                          //             width: 100,
+                          //             color: Colors.grey)),
+                          //   ],
+                          // ),
+                          // 15.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                doc['docName'],
+                                style: TextStyle(
+                                    fontSize: 24, fontFamily: 'Poppins'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Icon(
+                                  Icons.check_circle,
+                                  color: Colors.blueGrey[600],
+                                  size: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          0.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Physician | ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Inter',
+                                    color: Colors.grey[700]),
+                              ),
+                              RatingStar(
+                                rating: 4.5,
+                              )
+                            ],
+                          ),
+                          8.heightBox,
+                          SizedBox(
+                            width: _width * 0.75,
+                            child: const Text(
+                              'MBBS (International Medical University, Malaysia), MRCP (Royal College of Physicians, United Kingdom)',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: 'Inter',
+                                fontSize: 15,
+                              ),
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          8.heightBox,
+                          SizedBox(
+                            width: _width * 0.75,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.local_hospital),
+                                4.widthBox,
+                                const Text(
+                                  'Apex Multispeciality Hospital',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15,
+                                  ),
+                                  softWrap: true,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                          10.heightBox,
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: _height * 0.12,
+                                width: _width * 0.28,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          Color(0xFF9CC5FF).withOpacity(0.6),
+                                          Color.fromARGB(255, 40, 76, 255)
+                                              .withOpacity(0.3)
+                                        ]),
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Patients',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        // fontFamily: 'Poppins',
+                                        fontSize: 18,
+                                      ),
+                                      softWrap: true,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    5.heightBox,
+                                    Text(
+                                      '154',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 20,
+                                      ),
+                                      softWrap: true,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              10.widthBox,
+                              Container(
+                                height: _height * 0.12,
+                                width: _width * 0.28,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          Color(0xFF9CC5FF).withOpacity(0.6),
+                                          Color.fromARGB(255, 40, 76, 255)
+                                              .withOpacity(0.3)
+                                        ]),
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Experience',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        // fontFamily: 'Poppins',
+                                        fontSize: 18,
+                                      ),
+                                      softWrap: true,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    5.heightBox,
+                                    Text(
+                                      '10+ years',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 20,
+                                      ),
+                                      softWrap: true,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              10.widthBox,
+                              // ProgressWidget(
+                              //     value: 92.8,
+                              //     totalValue: 100,
+                              //     activeColor:
+                              //         Color(0xFF8E97FD).withOpacity(0.8),
+                              //     backgroundColor:
+                              //         Color(0xFF3A5160).withOpacity(.3),
+                              //     title: "Total Score",
+                              // durationTime: 300),
+                              Container(
+                                height: _height * 0.12,
+                                width: _width * 0.28,
+                                decoration: BoxDecoration(
+                                    // color: Color.fromARGB(255, 236, 225, 255),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          Color(0xFF9CC5FF).withOpacity(0.6),
+                                          Color.fromARGB(255, 40, 76, 255)
+                                              .withOpacity(0.3)
+                                        ]),
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Satisfaction',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        // fontFamily: 'Poppins',
+                                        fontSize: 18,
+                                      ),
+                                      softWrap: true,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    5.heightBox,
+                                    Text(
+                                      '88.7',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Poppins',
+                                        fontSize: 20,
+                                      ),
+                                      softWrap: true,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // 10.widthBox,
+                            ],
+                          ),
+
+                          15.heightBox,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "About",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins',
+                                    color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          4.heightBox,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                doc['docAbout'],
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Inter',
+                                    color: Colors.grey[700]),
+                              ),
+                            ),
+                          ),
+
+                          10.heightBox,
+                          Container(
+                            padding: EdgeInsets.all(0),
+                            color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // DocInfoBox(
+                                //     infoLabel: "Name",
+                                //     infoText: doc['docName'],
+                                //     icon: iconList[0]),
+                                DocInfoBox(
+                                    infoLabel: "Email",
+                                    infoText: doc['docEmail'],
+                                    icon: iconList[1]),
+                                DocInfoBox(
+                                    infoLabel: "Phone",
+                                    infoText: doc['docPhone'],
+                                    icon: iconList[2]),
+                                DocInfoBox(
+                                    infoLabel: "Address",
+                                    infoText: doc['docAddress'],
+                                    icon: iconList[3]),
+                                DocInfoBox(
+                                    infoLabel: "Services",
+                                    infoText: doc['docServices'],
+                                    icon: iconList[5]),
+                                DocInfoBox(
+                                    infoLabel: "Category",
+                                    infoText: doc['docCategory'],
+                                    icon: iconList[6]),
+                                DocInfoBox(
+                                    infoLabel: "Timing",
+                                    infoText: doc['docTiming'],
+                                    icon: iconList[7]),
+                              ],
+                            ),
+                          ),
+                          // Spacer(),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
         bottomNavigationBar: GestureDetector(
           onTap: () {

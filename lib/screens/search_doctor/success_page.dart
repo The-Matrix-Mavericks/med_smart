@@ -6,18 +6,27 @@ import 'package:lottie/lottie.dart';
 
 class AppointmentBooked extends StatelessWidget {
   const AppointmentBooked({Key? key}) : super(key: key);
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   Timer(const Duration(milliseconds: 2500), () {
+  //     Get.to(() => MedHomePage());
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF3F6F6),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Lottie.network('https://lottie.host/919587de-673a-4c53-8882-bb2dd19a0055/L5xvP7YYoQ.json'),
+            SizedBox(
+              height: 230,
             ),
+            Lottie.asset('assets/success.json'),
             Container(
               width: double.infinity,
               alignment: Alignment.center,

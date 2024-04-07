@@ -24,11 +24,24 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  // List<String> docImages = [
+  //   'assets/images/doc1.png',
+  //   'assets/images/doc2.jpg',
+  //   'assets/images/doc3.jpg',
+  //   'assets/images/doc4.jpg',
+  // ];
+
   List<String> docImages = [
-    'assets/images/doc1.png',
-    'assets/images/doc2.jpg',
-    'assets/images/doc3.jpg',
-    'assets/images/doc4.jpg',
+    "assets/images/doctor.png",
+    "assets/images/doctor_4.png",
+    "assets/images/doctor_3.png",
+    "assets/images/doctor_1.png",
+    "assets/images/doctor_5.png",
+    "assets/images/doctor.png",
+    "assets/images/doctor_4.png",
+    "assets/images/doctor_3.png",
+    "assets/images/doctor_1.png",
+    "assets/images/doctor_5.png",
   ];
   var roomId;
   // final callIDTextCtrl=TextEditingController(text:"testCallID");
@@ -44,7 +57,7 @@ class _ChatPageState extends State<ChatPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              backgroundColor: Colors.grey[700],
+              backgroundColor: Colors.blue[100],
               backgroundImage: AssetImage(docImages[widget.index]),
               // child: Image.asset(
               //   docImages[widget.index],
@@ -53,7 +66,7 @@ class _ChatPageState extends State<ChatPage> {
             ),
             8.widthBox,
             Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.name,

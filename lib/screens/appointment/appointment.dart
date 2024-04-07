@@ -13,6 +13,8 @@ class AppointmentPage extends StatefulWidget {
   State<AppointmentPage> createState() => _ChatPageState();
 }
 
+
+
 class _ChatPageState extends State<AppointmentPage> {
   int _buttonIndex = 0;
   @override
@@ -200,6 +202,7 @@ class _ChatPageState extends State<AppointmentPage> {
                           ),
                           child: AppointmentCard(
                             appDate: date2,
+                            index: index,
                             appDay: app_list['appointmentDay'],
                             appTime: app_list['appointmentTime'],
                             appWith: app_list['appointmentWithName'],

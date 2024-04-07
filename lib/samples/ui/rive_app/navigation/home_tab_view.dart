@@ -1,18 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_samples/FITNESS_APP/view/on_boarding/started_view.dart';
+import 'package:flutter_samples/MED_AI/AI_doc_main.dart';
+import 'package:flutter_samples/MED_REMINDER/med_rem_main_page.dart';
+import 'package:flutter_samples/MENTAL_HEALTH/assessment_main_page.dart';
+import 'package:flutter_samples/MOOD_TRACKER/ui/screens/introduction.dart';
+import 'package:flutter_samples/MOOD_TRACKER/ui/screens/main.dart';
+import 'package:flutter_samples/constants/app_colors.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/controllers/auth_controller.dart';
 import 'package:flutter_samples/controllers/user_data_controller.dart';
+import 'package:flutter_samples/samples/ui/rive_app/components/feature_tile.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/hcard.dart';
+import 'package:flutter_samples/samples/ui/rive_app/components/home_card.dart';
+import 'package:flutter_samples/samples/ui/rive_app/components/text_icon.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/vcard.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
 import 'package:flutter_samples/samples/ui/rive_app/models/courses.dart';
+import 'package:flutter_samples/samples/ui/rive_app/navigation/feedback_screen.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
+import 'package:flutter_samples/screens/appointment/appointment.dart';
+import 'package:flutter_samples/screens/gemini_chatbot/gemini_chatbot.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../DAY_PLANNER/VIEW/home_page.dart';
 
 class HomeTabView extends StatefulWidget {
   const HomeTabView({Key? key}) : super(key: key);
@@ -77,13 +92,77 @@ class _HomeTabViewState extends State<HomeTabView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding:
-                    EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 8),
-                child: Text(
-                  "Quick Actions",
-                  style: TextStyle(fontSize: 22, fontFamily: "Poppins"),
+              HomeTopCard(),
+              TitleView(
+                titleTxt: 'Our Services',
+                subTxt: 'More',
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 25.0, left: 25, top: 8),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * .255,
+                  // color: Colors.deepOrange,
+                  child: GridView.builder(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: menuSubtitle.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 15.0,
+                      crossAxisSpacing: 15.0,
+                      childAspectRatio: 1.0,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Material(
+                        elevation: 8,
+                        color: AppColors.bluePeriwinkle,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20.0)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 9),
+                              child: Image.asset(
+                                menuIcon[index],
+                                height: 55,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Text(
+                                menuSubtitle[index],
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ).onTap(() {
+                        Get.to(() => menuRoutes[index]);
+                      });
+                    },
+                  ),
                 ),
+              ),
+              // ),
+              // const Padding(
+              //   padding:
+              //       EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 0),
+              //   child: Text(
+              //     "Quick Actions",
+              //     style: TextStyle(fontSize: 22, fontFamily: "Poppins"),
+              //   ),
+              // ),
+              TitleView(
+                titleTxt: 'Quick Actions',
+                subTxt: 'More',
               ),
               SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -100,12 +179,9 @@ class _HomeTabViewState extends State<HomeTabView> {
                       .toList(),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                child: Text(
-                  "Utilities",
-                  style: TextStyle(fontSize: 22, fontFamily: "Poppins"),
-                ),
+              TitleView(
+                titleTxt: 'Utilities',
+                subTxt: 'more',
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -118,7 +194,10 @@ class _HomeTabViewState extends State<HomeTabView> {
                           ? ((MediaQuery.of(context).size.width - 20) / 2)
                           : MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
-                      child: HCard(section: _courseSections[index]),
+                      child: HCard(
+                        section: _courseSections[index],
+                        nextScreen: nextScreens[index],
+                      ),
                     ),
                   ),
                 ),
@@ -129,6 +208,42 @@ class _HomeTabViewState extends State<HomeTabView> {
       ),
     );
   }
+
+  List<String> menuIcon = <String>[
+    'assets/icons/ic_drugs.png',
+    'assets/icons/ic_wiki.png',
+    'assets/icons/ic_assistant.png',
+    'assets/icons/ic_delivery.png',
+    'assets/icons/ic_appointment.png',
+    // 'assets/icons/ic_community.png',
+    'assets/icons/ic_feedback.png',
+  ];
+
+  List<String> menuSubtitle = <String>[
+    'Medication',
+    'AI Assistant',
+    'Self Assess',
+    'AI Doc',
+    'Appointment',
+    // 'Community',
+    'Feedback',
+  ];
+
+  List<Widget> menuRoutes = [
+    MedHomePage(),
+    ChatBotScreen(),
+    Assessment(),
+    MedAIHomePage(),
+    AppointmentPage(),
+    FeedbackScreen(),
+    // HomeTabView(),
+  ];
+
+  List<Widget> nextScreens = [
+    StartedView(),
+    IntroductionScreen(),
+    HomePage(),
+  ];
 
   void showAlert(BuildContext context, bool showPopup) {
     var size = MediaQuery.of(context).size;
