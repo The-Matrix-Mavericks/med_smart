@@ -79,27 +79,39 @@ class _VCardState extends State<VCard> {
                     color: Colors.white),
               ),
               const Spacer(),
-              Wrap(
-                spacing: 8,
-                children: List.generate(
-                  avatars.length,
-                  (index) => Transform.translate(
-                    offset: Offset(index * -20, 0),
-                    child: ClipRRect(
-                      key: Key(index.toString()),
-                      borderRadius: BorderRadius.circular(22),
-                      child: Image.asset(
-                          "assets/samples/ui/rive_app/images/avatars/avatar_${avatars[index]}.jpg",
-                          width: 44,
-                          height: 44),
-                    ),
-                  ),
+              // Wrap(
+              //   spacing: 8,
+              //   children: List.generate(
+              //     avatars.length,
+              //     (index) => Transform.translate(
+              //       offset: Offset(index * -20, 0),
+              //       child: ClipRRect(
+              //         key: Key(index.toString()),
+              //         borderRadius: BorderRadius.circular(22),
+              //         child: Image.asset(
+              //             "assets/samples/ui/rive_app/images/avatars/avatar_${avatars[index]}.jpg",
+              //             width: 44,
+              //             height: 44),
+              //       ),
+              //     ),
+              //   ),
+              // )
+              Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Image.asset(
+                  widget.course.image,
+                  height: 100.0,
                 ),
               )
             ],
           ),
-          Positioned(
-              right: -10, top: -10, child: Image.asset(widget.course.image))
+          // Positioned(
+          //     right: -10,
+          //     top: -15,
+          //     child: Image.asset(
+          //       widget.course.image,
+          //       height: 55.0,
+          //     ))
         ],
       ),
     );

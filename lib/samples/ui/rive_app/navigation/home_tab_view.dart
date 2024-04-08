@@ -21,6 +21,7 @@ import 'package:flutter_samples/samples/ui/rive_app/models/courses.dart';
 import 'package:flutter_samples/samples/ui/rive_app/navigation/feedback_screen.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/screens/appointment/appointment.dart';
+import 'package:flutter_samples/screens/doctor_map/doctor_map.dart';
 import 'package:flutter_samples/screens/gemini_chatbot/gemini_chatbot.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -224,7 +225,7 @@ class _HomeTabViewState extends State<HomeTabView> {
     'AI Assistant',
     'Self Assess',
     'AI Doc',
-    'Appointment',
+    'Nearby Docs',
     // 'Community',
     'Feedback',
   ];
@@ -234,7 +235,7 @@ class _HomeTabViewState extends State<HomeTabView> {
     ChatBotScreen(),
     Assessment(),
     MedAIHomePage(),
-    AppointmentPage(),
+    DoctorMap(),
     FeedbackScreen(),
     // HomeTabView(),
   ];

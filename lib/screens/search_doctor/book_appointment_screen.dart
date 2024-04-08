@@ -7,6 +7,7 @@ import 'package:flutter_samples/controllers/appointment_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/button.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/custom_text_field.dart';
 import 'package:flutter_samples/samples/ui/rive_app/models/booking_datetime_contverted.dart';
+import 'package:flutter_samples/screens/search_doctor/qr_code.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -47,10 +48,17 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
       appBar: AppBar(
         title: Text(widget.docName,
             style: TextStyle(
-                fontSize: 24, fontFamily: 'Poppins', color: kTextColor)),
+                fontSize: 24,
+                fontFamily: 'Poppins',
+                color: kTextColor,
+                fontWeight: FontWeight.w500)),
         centerTitle: true,
         leading: IconButton(
             icon: Icon(Icons.arrow_back_ios_new), onPressed: () => Get.back()),
+        // actions: [
+        //   IconButton(
+        // icon: Icon(Icons.qr_code), onPressed: () => Get.to(()=>QrCode())),
+        // ],
       ),
       body: CustomScrollView(
         slivers: <Widget>[

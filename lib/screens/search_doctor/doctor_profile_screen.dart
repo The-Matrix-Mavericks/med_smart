@@ -7,16 +7,24 @@ import 'package:flutter_samples/constants/custom_button.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/doc_info_field.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/progress_widget.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/rating_stars.dart';
+import 'package:flutter_samples/screens/doctor_map/doctor_map.dart';
 import 'package:flutter_samples/screens/search_doctor/book_appointment_screen.dart';
+import 'package:flutter_samples/screens/search_doctor/doc_location.dart';
 import 'package:flutter_samples/screens/user_health_metrics/utils/data_container.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class DoctorProfileView extends StatelessWidget {
   final DocumentSnapshot doc;
   final String image;
-  DoctorProfileView({super.key, required this.doc, required this.image});
+  final LatLng latLng;
+  DoctorProfileView(
+      {super.key,
+      required this.doc,
+      required this.image,
+      required this.latLng});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,18 @@ class DoctorProfileView extends StatelessWidget {
           leading: IconButton(
               icon: Icon(Icons.arrow_back_ios_new),
               onPressed: () => Get.back()),
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.location_on,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () => Get.to(() => DoctorLocation(
+                      name: doc['docName'],
+                      latLng: latLng,
+                    ))),
+          ],
         ),
         body: Stack(
           children: [

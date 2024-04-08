@@ -53,7 +53,10 @@ class HCard extends StatelessWidget {
               padding: EdgeInsets.all(20),
               child: VerticalDivider(thickness: 0.8, width: 0),
             ),
-            Image.asset(section.image)
+            Image.asset(
+              section.image,
+              width: 50,
+            )
           ],
         ),
       ).onTap(() => Get.to(() => nextScreen)),

@@ -1,6 +1,13 @@
 const String spline = 'assets/samples/ui/rive_app/images/backgrounds/spline.png';
-const String topic_1 = 'assets/samples/ui/rive_app/images/topics/topic_1.png';
-const String topic_2 = 'assets/samples/ui/rive_app/images/topics/topic_2.png';
+
+const String topic_1 = 'assets/samples/ui/rive_app/images/topics/beat.png';
+const String topic_2 = 'assets/samples/ui/rive_app/images/topics/exam.png';
+const String topic_3 = 'assets/samples/ui/rive_app/images/topics/brain.png';
+
+const String utility_1 = 'assets/samples/ui/rive_app/images/topics/smart.png';
+const String utility_2 = 'assets/samples/ui/rive_app/images/topics/mood.png';
+const String utility_3 = 'assets/samples/ui/rive_app/images/topics/day.png';
+
 const String logoEmail = 'assets/samples/ui/rive_app/images/logo_email.png';
 const String logoApple = 'assets/samples/ui/rive_app/images/logo_apple.png';
 const String logoGoogle = 'assets/samples/ui/rive_app/images/logo_google.png';

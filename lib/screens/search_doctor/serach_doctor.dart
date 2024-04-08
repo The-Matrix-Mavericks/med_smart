@@ -5,11 +5,13 @@ import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/controllers/doctor_screen_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/custom_text_field.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
+import 'package:flutter_samples/screens/doctor_map/doctor_map.dart';
 import 'package:flutter_samples/screens/search_doctor/doctor_profile_screen.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter_samples/screens/user_health_metrics/utils/data_container.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SearchDoctorPage extends StatefulWidget {
@@ -43,6 +45,17 @@ class _ChatPageState extends State<SearchDoctorPage> {
     'Bones',
     'Eyes',
     'Ears',
+  ];
+
+  List docLocations = [
+    LatLng(23.1661, 77.3281), // Ratibad
+
+    LatLng(23.1925, 77.3468), // Neelbad
+    LatLng(23.2567, 77.4343),
+    // Ashkoda Garden
+    LatLng(23.2332, 77.4343), // MP Nagar
+
+    LatLng(23.2523, 77.4623),
   ];
 
   bool isViewAll = false;
@@ -103,69 +116,71 @@ class _ChatPageState extends State<SearchDoctorPage> {
             //   ),
             // ),
             Padding(
-                padding: const EdgeInsets.only(
-                    top: 30.0, right: 18, left: 18, bottom: 20),
-                child: Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFF9CC5FF).withOpacity(0.6),
-                            Color.fromARGB(255, 40, 76, 255).withOpacity(0.3)
-                          ]),
-                      // color: Color(0xFF9CC5FF).withOpacity(0.6),
-                      borderRadius: BorderRadius.circular(15)),
-                  height: _height * 0.2,
-                  width: double.infinity,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Image.asset(
-                        "assets/images/home_doc.png",
-                        height: _height * 0.2,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "How do you feel?",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.bold),
-                          ),
-                          8.heightBox,
-                          Text(
-                            "When you need any help,\nMed Smart is with you... ",
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400),
-                          ),
-                          10.heightBox,
-                          Container(
-                            height: 40,
-                            width: 120,
-                            decoration: BoxDecoration(
-                                color: Color(0xFFBBA6FF).withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Center(
-                              child: Text(
-                                "Get started",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w600),
-                              ),
+              padding: const EdgeInsets.only(
+                  top: 30.0, right: 18, left: 18, bottom: 20),
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF9CC5FF).withOpacity(0.6),
+                          Color.fromARGB(255, 40, 76, 255).withOpacity(0.3)
+                        ]),
+                    // color: Color(0xFF9CC5FF).withOpacity(0.6),
+                    borderRadius: BorderRadius.circular(15)),
+                height: _height * 0.2,
+                width: double.infinity,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Image.asset(
+                      "assets/images/home_doc.png",
+                      height: _height * 0.2,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "How do you feel?",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold),
+                        ),
+                        8.heightBox,
+                        Text(
+                          "When you need any help,\nMed Smart is with you... ",
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400),
+                        ),
+                        10.heightBox,
+                        Container(
+                          height: 40,
+                          width: 120,
+                          decoration: BoxDecoration(
+                              color: Color(0xFFBBA6FF).withOpacity(0.6),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Center(
+                            child: Text(
+                              "Get started",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
-                        ],
-                      )
-                    ],
-                  ),
-                )),
+                        )
+                        // .onTap(() => Get.to(() => DoctorMap())),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(
                   top: 0.0, right: 20, left: 18, bottom: 15),
@@ -322,6 +337,7 @@ class _ChatPageState extends State<SearchDoctorPage> {
                                   Get.to(() => DoctorProfileView(
                                         doc: data![index],
                                         image: docImages[index],
+                                        latLng: docLocations[index],
                                       ));
                                 },
                                 child: Padding(
@@ -452,6 +468,31 @@ class _ChatPageState extends State<SearchDoctorPage> {
           ],
         ),
       ),
+      // floatingActionButton: IconButton(
+      //   onPressed: () => Get.to(() => DoctorMap()),
+      //   icon: Padding(
+      //     padding: const EdgeInsets.only(bottom: 65, right: 0),
+      //     child: Container(
+      //       height: 60,
+      //       width: 60,
+      //       decoration: BoxDecoration(
+      //           shape: BoxShape.circle,
+      //           color: Colors.white,
+      //           boxShadow: [
+      //             BoxShadow(
+      //               color: Colors.black38,
+      //               offset: Offset(5, 5),
+      //               blurRadius: 8,
+      //             )
+      //           ]),
+      //       child: Icon(
+      //         Icons.location_on,
+      //         color: Colors.red,
+      //         size: 40,
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 

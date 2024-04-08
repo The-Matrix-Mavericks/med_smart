@@ -17,8 +17,8 @@ class AppointmentController extends GetxController {
   bookAppointment(String docID, String docName, String appDate, String appDay,
       String appTime, context) async {
     isLoading(true);
-    var store = FirebaseFirestore.instance.collection('appointment').doc();
-    await store.set({
+    DocumentReference store =
+        await FirebaseFirestore.instance.collection('appointment').add({
       'appointmentBy': FirebaseAuth
           .instance.currentUser?.uid, // user id from USER collection
       'appointmentDay':
@@ -39,13 +39,50 @@ class AppointmentController extends GetxController {
       'appointmentWith': docID, // doctor id from DOCTOR collection
       'appointmentWithName': docName, // doctor name from DOCTOR collection
     });
-    isLoading(false);
+    // await store.set({
+    // 'appointmentBy': FirebaseAuth
+    //     .instance.currentUser?.uid, // user id from USER collection
+    // 'appointmentDay':
+    //     // appointmentDayController.text, // selected day for appointment
+    //     appDay, // selected day for appointment
+    // 'appointmentTime':
+    //     // appointmentTimeController.text, // selected time for appointment
+    //     appTime, // selected time for appointment
+    // 'appointmentDate':
+    //     // appointmentTimeController.text, // selected time for appointment
+    //     appDate, // selected time for appointment
+    // 'appointmentMobileNo':
+    //     appointmentMobileNoController.text, // mobile no. of user
+    // 'appointmentName': appointmentNameController
+    //     .text, //  name of user appointment is booked for
+    // 'appointmentMessage': appointmentMessageController
+    //     .text, // message by user for doctor about the health condition
+    // 'appointmentWith': docID, // doctor id from DOCTOR collection
+    // 'appointmentWithName': docName, // doctor name from DOCTOR collection
+    // });
+
     // VxToast.show(context,
     //     msg: "Appointment booked successfully ✅",
     //     textSize: 18,
     //     bgColor: Colors.black,
     //     textColor: Colors.white);
-    Get.to(() => AppointmentBooked());
+    // QuerySnapshot snap = await FirebaseFirestore.instance
+    //     .collection('appointment')
+    //     .orderBy('createdAt', descending: true)
+    //     .limit(1)
+    //     .get();
+    // String lastDocumentId = snap.docs.first.id;
+    // // Get.to(() => AppointmentBooked(
+    // //       docID: lastDocumentId,
+    // //     ));
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AppointmentBooked(
+                  docID: store.id,
+                )));
+    isLoading(false);
   }
 
   // Future<QuerySnapshot<Map<String, dynamic>>> getAppointments(bool isDoctor) {

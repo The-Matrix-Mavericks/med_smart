@@ -92,7 +92,9 @@ dependencies:
   pdf: ^3.10.6
   path_provider: ^2.1.1
   flutter_file_dialog: ^3.0.2
-
+  flutter_map: ^6.1.0
+  latlng: ^2.0.7
+  qr_flutter:
 
 dependency_overrides: 
   intl: ^0.18.1

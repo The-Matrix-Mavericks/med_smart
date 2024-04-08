@@ -35,7 +35,7 @@ class CourseModel {
             "Supercharge your concentration and focus using mind tricks... ",
         caption: "Know more",
         color: const Color(0xFF005FE7),
-        image: app_assets.topic_1),
+        image: app_assets.topic_3),
   ];
 
   static List<CourseModel> courseSections = [
@@ -43,12 +43,12 @@ class CourseModel {
         title: "Smart Lifestyle",
         caption: "with yoga, excercise, sleep & meal planning",
         color: const Color(0xFF9CC5FF),
-        image: app_assets.topic_2),
+        image: app_assets.utility_1),
     CourseModel(
         title: "Mood Tracker",
         caption: "to track and record daily mood",
         color: const Color(0xFF6E6AE8),
-        image: app_assets.topic_1),
+        image: app_assets.utility_2),
     // CourseModel(
     //     title: "MedAI is here",
     //     caption: "for assistance",
@@ -59,7 +59,7 @@ class CourseModel {
         caption: "to be productive by planning each task",
         // color: const Color(0xFF005FE7),
         color: const Color(0xFFBBA6FF),
-        image: app_assets.topic_2),
+        image: app_assets.utility_3),
     // CourseModel(
     //     title: "Day Tracker",
     //     caption: "with Med Smart",
