@@ -1,23 +1,33 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/app_styles.dart';
 import 'package:flutter_samples/constants/color.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/constants/custom_button.dart';
 import 'package:flutter_samples/controllers/appointment_controller.dart';
+import 'package:flutter_samples/controllers/paymentMethod.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/button.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/custom_text_field.dart';
 import 'package:flutter_samples/samples/ui/rive_app/models/booking_datetime_contverted.dart';
+import 'package:flutter_samples/screens/appointment/payment.dart';
 import 'package:flutter_samples/screens/search_doctor/qr_code.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class BookAppointmentVIew extends StatefulWidget {
   final String docID;
   final String docName;
-
-  BookAppointmentVIew({super.key, required this.docID, required this.docName});
+  final String fees;
+  BookAppointmentVIew(
+      {super.key,
+      required this.docID,
+      required this.docName,
+      required this.fees});
 
   @override
   State<BookAppointmentVIew> createState() => _BookAppointmentVIewState();
@@ -30,6 +40,8 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
 
   DateTime _currentDay = DateTime.now();
 
+  String selectedOption = 'Prepaid';
+
   int? _currentIndex;
 
   bool _isWeekend = false;
@@ -41,9 +53,81 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
   TextStyle hintStyle = TextStyle(
       color: Colors.grey[500], fontWeight: FontWeight.w400, fontSize: 16);
 
+  late Razorpay _razorpay;
+  var controller = Get.put(AppointmentController());
+  @override
+  void initState() {
+    super.initState();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    // Handle payment success
+    print("Payment Success: " + response.paymentId!);
+    PaymentMethod provider = Provider.of<PaymentMethod>(context);
+    if (response.paymentId!.isNotEmpty) {
+      final getDate = DateConverted.getDate(_currentDay);
+      final getDay = DateConverted.getDay(_currentDay.weekday);
+      final getTime = DateConverted.getTime(_currentIndex!);
+      print(getTime + " " + getDay + " " + getDate);
+
+      controller.bookAppointment(
+          widget.docID, widget.docName, getDate, getDay, getTime, context);
+    }
+    // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>))
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Handle payment failure
+    print("Payment Error: " +
+        response.code.toString() +
+        " - " +
+        response.message!);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Handle external wallet
+    print("External Wallet: " + response.walletName!);
+  }
+
+  _openCheckout() {
+    double amount = double.tryParse(widget.fees) ?? 0;
+    int amountInPaise = (amount * 100).toInt();
+    var options = {
+      'key': 'rzp_test_Y9xW7kK9cQ6HWo',
+      'amount': amountInPaise, // amount in the smallest currency unit
+      'name': 'Med Smart',
+      'description': 'Appoinment Fee',
+      'prefill': {
+        'contact': '8839361702',
+        'email': 'arpitpatel12122001@gmail.com'
+      },
+      'external': {
+        'wallets': ['paytm', 'phone-pe']
+      }
+    };
+
+    try {
+      print("working--------");
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(AppointmentController());
+    PaymentMethod provider = Provider.of<PaymentMethod>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.docName,
@@ -167,6 +251,33 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
           SliverToBoxAdapter(
               child: Column(
             children: [
+              Card(
+                  child: Container(
+                      height: 50,
+                      // width: 300,
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                              child: Text(
+                            'Doctor Fees :',
+                            style: TextStyle(
+                                color: Color.fromARGB(221, 8, 2, 2),
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          )),
+                          Center(child: Icon(Icons.currency_rupee)),
+                          Center(
+                              child: Text(
+                            '${widget.fees}',
+                            style: TextStyle(
+                                color: Color.fromARGB(221, 8, 2, 2),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          )),
+                        ],
+                      ))),
               CustomTextFieldWithFieldName(
                 textField: TextField(
                   controller: controller.appointmentNameController,
@@ -188,7 +299,6 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
                 ),
                 fieldName: "Patient Name",
               ),
-
               CustomTextFieldWithFieldName(
                 textField: TextField(
                   controller: controller.appointmentMobileNoController,
@@ -231,7 +341,61 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
                 ),
                 fieldName: "Message for doctor",
               ),
-              // 8.heightBox,
+              10.heightBox,
+              if (!provider.value)
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "Please note: If you select the Postpaid payment method, you will be required to pay the appointment fees at the clinic.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                ),
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                  child: Text(
+                'Payment Methods',
+                style: TextStyle(
+                    color: Color.fromARGB(221, 8, 2, 2),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              )),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile(
+                      title: Text('Prepaid'),
+                      value: 'Prepaid',
+                      groupValue: selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value!;
+                          provider.updateValue(true);
+                        });
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: RadioListTile(
+                      title: Text('Postpaid'),
+                      value: 'Postpaid',
+                      groupValue: selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value!;
+                          provider.updateValue(false);
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ],
           )),
         ],
@@ -240,12 +404,19 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
           ? Center(child: CircularProgressIndicator())
           : GestureDetector(
               onTap: () async {
+                print(" payment value ----> ${provider.value.toString()}");
+
                 final getDate = DateConverted.getDate(_currentDay);
                 final getDay = DateConverted.getDay(_currentDay.weekday);
                 final getTime = DateConverted.getTime(_currentIndex!);
                 print(getTime + " " + getDay + " " + getDate);
-                await controller.bookAppointment(widget.docID, widget.docName,
-                    getDate, getDay, getTime, context);
+
+                if (provider.value) {
+                  await _openCheckout();
+                } else {
+                  await controller.bookAppointment(widget.docID, widget.docName,
+                      getDate, getDay, getTime, context);
+                }
               },
               child: Padding(
                 padding: const EdgeInsets.all(0.0),
