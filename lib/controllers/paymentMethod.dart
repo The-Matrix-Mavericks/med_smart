@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaymentMethod extends ChangeNotifier {
-  bool _value = false;
+  bool _value = true;
 
   bool get value => _value;
 

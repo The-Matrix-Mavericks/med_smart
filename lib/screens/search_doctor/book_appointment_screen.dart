@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/app_styles.dart';
 import 'package:flutter_samples/constants/color.dart';
@@ -71,14 +73,14 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Handle payment success
     print("Payment Success: " + response.paymentId!);
-
+    PaymentMethod provider = Provider.of<PaymentMethod>(context);
     if (response.paymentId!.isNotEmpty) {
       final getDate = DateConverted.getDate(_currentDay);
       final getDay = DateConverted.getDay(_currentDay.weekday);
       final getTime = DateConverted.getTime(_currentIndex!);
       print(getTime + " " + getDay + " " + getDate);
-      controller.bookAppointment(
-          widget.docID, widget.docName, getDate, getDay, getTime, context);
+      controller.bookAppointment(widget.docID, widget.docName, getDate, getDay,
+          getTime, context, provider.value);
     }
   }
 
@@ -295,7 +297,6 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
                 ),
                 fieldName: "Patient Name",
               ),
-
               CustomTextFieldWithFieldName(
                 textField: TextField(
                   controller: controller.appointmentMobileNoController,
@@ -338,7 +339,23 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
                 ),
                 fieldName: "Message for doctor",
               ),
-              // 8.heightBox,
+              10.heightBox,
+              if (!provider.value)
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "Please note: If you select the Postpaid payment method, you will be required to pay the appointment fees at the clinic.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                ),
+              SizedBox(
+                height: 10,
+              ),
               Center(
                   child: Text(
                 'Payment Methods',
@@ -376,7 +393,7 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           )),
         ],
@@ -385,14 +402,19 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
           ? Center(child: CircularProgressIndicator())
           : GestureDetector(
               onTap: () async {
-                // final getDate = DateConverted.getDate(_currentDay);
-                // final getDay = DateConverted.getDay(_currentDay.weekday);
-                // final getTime = DateConverted.getTime(_currentIndex!);
-                // print(getTime + " " + getDay + " " + getDate);
-                // await controller.bookAppointment(widget.docID, widget.docName,
-                //     getDate, getDay, getTime, context);
+                print(" payment value ----> ${provider.value.toString()}");
 
-                await _openCheckout();
+                final getDate = DateConverted.getDate(_currentDay);
+                final getDay = DateConverted.getDay(_currentDay.weekday);
+                final getTime = DateConverted.getTime(_currentIndex!);
+                print(getTime + " " + getDay + " " + getDate);
+
+                if (provider.value) {
+                  await _openCheckout();
+                } else {
+                  await controller.bookAppointment(widget.docID, widget.docName,
+                      getDate, getDay, getTime, context, provider.value);
+                }
               },
               child: Padding(
                 padding: const EdgeInsets.all(0.0),
