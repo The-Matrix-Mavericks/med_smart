@@ -6,6 +6,7 @@ import 'package:flutter_samples/controllers/doctor_screen_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/components/custom_text_field.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/screens/doctor_map/doctor_map.dart';
+import 'package:flutter_samples/screens/medical_stores/medical_stores.dart';
 import 'package:flutter_samples/screens/search_doctor/doctor_profile_screen.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter_samples/screens/user_health_metrics/utils/data_container.dart';
@@ -468,31 +469,31 @@ class _ChatPageState extends State<SearchDoctorPage> {
           ],
         ),
       ),
-      // floatingActionButton: IconButton(
-      //   onPressed: () => Get.to(() => DoctorMap()),
-      //   icon: Padding(
-      //     padding: const EdgeInsets.only(bottom: 65, right: 0),
-      //     child: Container(
-      //       height: 60,
-      //       width: 60,
-      //       decoration: BoxDecoration(
-      //           shape: BoxShape.circle,
-      //           color: Colors.white,
-      //           boxShadow: [
-      //             BoxShadow(
-      //               color: Colors.black38,
-      //               offset: Offset(5, 5),
-      //               blurRadius: 8,
-      //             )
-      //           ]),
-      //       child: Icon(
-      //         Icons.location_on,
-      //         color: Colors.red,
-      //         size: 40,
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      floatingActionButton: IconButton(
+        onPressed: () => Get.to(() => MedicalStoresNearMe()),
+        icon: Padding(
+          padding: const EdgeInsets.only(bottom: 65, right: 0),
+          child: Container(
+            height: 60,
+            width: 60,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black38,
+                    offset: Offset(5, 5),
+                    blurRadius: 8,
+                  )
+                ]),
+            child: Icon(
+              Icons.location_on,
+              color: Colors.red,
+              size: 40,
+            ),
+          ),
+        ),
+      ),
     );
   }
 

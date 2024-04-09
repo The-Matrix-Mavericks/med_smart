@@ -59,6 +59,7 @@ class _MyAppState extends State<MyApp> {
             // theme: ThemeData(
             //   primarySwatch: Colors.blue,
             // ),
+            debugShowCheckedModeBanner: false,
             theme: Themes.light,
             darkTheme: Themes.dark,
             routes: {
