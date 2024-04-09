@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_samples/constants/constants.dart';
 import 'package:flutter_samples/controllers/user_data_controller.dart';
 import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onboarding_view.dart';
+import 'package:flutter_samples/screens/user_profile/help_and_support.dart';
+import 'package:flutter_samples/screens/user_profile/invite_a_friend.dart';
 import 'package:flutter_samples/screens/user_profile/medical_form.dart';
 import 'package:flutter_samples/screens/user_profile/medical_status.dart';
+import 'package:flutter_samples/screens/user_profile/settings.dart';
 import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../diseases/disease_home.dart';
@@ -324,69 +327,99 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Card(
-                    color: Colors.yellow[50]!,
-                    margin:
-                        const EdgeInsets.only(left: 35, right: 35, bottom: 5),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const ListTile(
-                      leading: Icon(Icons.help_outline, color: Colors.black54),
-                      title: Text(
-                        'Help & Support',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        color: Colors.black54,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HelpAndSupportPage(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      color: Colors.yellow[50]!,
+                      margin:
+                          const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const ListTile(
+                        leading: Icon(Icons.help_outline, color: Colors.black54),
+                        title: Text(
+                          'Help & Support',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black54,
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  Card(
-                    color: Colors.orange[50],
-                    margin:
-                        const EdgeInsets.only(left: 35, right: 35, bottom: 5),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const ListTile(
-                      leading: Icon(
-                        Icons.privacy_tip_sharp,
-                        color: Colors.black54,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SettingsPage(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      color: Colors.orange[50],
+                      margin:
+                          const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const ListTile(
+                        leading: Icon(
+                          Icons.privacy_tip_sharp,
+                          color: Colors.black54,
+                        ),
+                        title: Text(
+                          'Settings',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Icon(Icons.arrow_forward_ios_outlined),
                       ),
-                      title: Text(
-                        'Settings',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      trailing: Icon(Icons.arrow_forward_ios_outlined),
                     ),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  Card(
-                    color: Colors.green[50],
-                    margin:
-                        const EdgeInsets.only(left: 35, right: 35, bottom: 5),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const ListTile(
-                      leading: Icon(
-                        Icons.add_reaction_sharp,
-                        color: Colors.black54,
-                      ),
-                      title: Text(
-                        'Invite a Friend',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        color: Colors.black54,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => InviteAfriend(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      color: Colors.green[50],
+                      margin:
+                          const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const ListTile(
+                        leading: Icon(
+                          Icons.add_reaction_sharp,
+                          color: Colors.black54,
+                        ),
+                        title: Text(
+                          'Invite a Friend',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black54,
+                        ),
                       ),
                     ),
                   ),
