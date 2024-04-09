@@ -468,31 +468,31 @@ class _ChatPageState extends State<SearchDoctorPage> {
           ],
         ),
       ),
-      // floatingActionButton: IconButton(
-      //   onPressed: () => Get.to(() => DoctorMap()),
-      //   icon: Padding(
-      //     padding: const EdgeInsets.only(bottom: 65, right: 0),
-      //     child: Container(
-      //       height: 60,
-      //       width: 60,
-      //       decoration: BoxDecoration(
-      //           shape: BoxShape.circle,
-      //           color: Colors.white,
-      //           boxShadow: [
-      //             BoxShadow(
-      //               color: Colors.black38,
-      //               offset: Offset(5, 5),
-      //               blurRadius: 8,
-      //             )
-      //           ]),
-      //       child: Icon(
-      //         Icons.location_on,
-      //         color: Colors.red,
-      //         size: 40,
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      floatingActionButton: IconButton(
+        onPressed: () => Get.to(() => DoctorMap()),
+        icon: Padding(
+          padding: const EdgeInsets.only(bottom: 65, right: 0),
+          child: Container(
+            height: 60,
+            width: 60,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black38,
+                    offset: Offset(5, 5),
+                    blurRadius: 8,
+                  )
+                ]),
+            child: Icon(
+              Icons.location_on,
+              color: Colors.red,
+              size: 40,
+            ),
+          ),
+        ),
+      ),
     );
   }
 

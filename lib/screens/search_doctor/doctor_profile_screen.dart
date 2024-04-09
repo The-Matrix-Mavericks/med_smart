@@ -386,6 +386,10 @@ class DoctorProfileView extends StatelessWidget {
                                     infoLabel: "Timing",
                                     infoText: doc['docTiming'],
                                     icon: iconList[7]),
+                                DocInfoBox(
+                                    infoLabel: "Doctor fees",
+                                    infoText: doc['docFees'],
+                                    icon: iconList[8]),
                               ],
                             ),
                           ),
@@ -402,9 +406,9 @@ class DoctorProfileView extends StatelessWidget {
         bottomNavigationBar: GestureDetector(
           onTap: () {
             Get.to(() => BookAppointmentVIew(
-                  docID: doc['docID'],
-                  docName: doc['docName'],
-                ));
+                docID: doc['docID'],
+                docName: doc['docName'],
+                fees: doc['docFees']));
           },
           child: Padding(
             padding: const EdgeInsets.all(0.0),
@@ -468,6 +472,10 @@ class DoctorProfileView extends StatelessWidget {
     ),
     Icon(
       FontAwesomeIcons.clock,
+      size: 20,
+    ),
+    Icon(
+      FontAwesomeIcons.rupeeSign,
       size: 20,
     ),
   ];

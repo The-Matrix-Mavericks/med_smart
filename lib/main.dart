@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/DAY_PLANNER/MODEL/db/db.helper.dart';
 import 'package:flutter_samples/DAY_PLANNER/VIEW/theme/theme.dart';
+import 'package:flutter_samples/controllers/paymentMethod.dart';
 import 'package:flutter_samples/models/samples.dart';
 import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onboarding_view.dart';
 import 'package:flutter_samples/screens/intro_screens/intro_view.dart';
@@ -54,22 +55,26 @@ class _MyAppState extends State<MyApp> {
     return Provider<GlobalBloc>.value(
         value: globalBloc!,
         child: Sizer(builder: (context, orientation, deviceType) {
-          return GetMaterialApp(
-            title: 'Med Smart',
-            // theme: ThemeData(
-            //   primarySwatch: Colors.blue,
-            // ),
-            theme: Themes.light,
-            darkTheme: Themes.dark,
-            routes: {
-              RiveAppHome.route: (context) => const RiveAppHome(),
-            },
-            // home: SamplesListView(
-            //   title: "Flutter Samples",
-            //   backEnabled: false,
-            //   listData: SampleData.sampleTypes,
-            // ),
-            home: SplashScreen(),
+          return ChangeNotifierProvider(
+            create: (context) => PaymentMethod(),
+            child: GetMaterialApp(
+              title: 'Med Smart',
+              // theme: ThemeData(
+              //   primarySwatch: Colors.blue,
+              // ),
+
+              theme: Themes.light,
+              darkTheme: Themes.dark,
+              routes: {
+                RiveAppHome.route: (context) => const RiveAppHome(),
+              },
+              // home: SamplesListView(
+              //   title: "Flutter Samples",
+              //   backEnabled: false,
+              //   listData: SampleData.sampleTypes,
+              // ),
+              home: SplashScreen(),
+            ),
           );
         }));
   }
