@@ -95,6 +95,7 @@ class _HomeTabViewState extends State<HomeTabView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               HomeTopCard(),
+              
               TitleView(
                 titleTxt: 'Our Services',
                 subTxt: 'More',
