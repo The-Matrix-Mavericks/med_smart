@@ -79,9 +79,11 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
       final getDay = DateConverted.getDay(_currentDay.weekday);
       final getTime = DateConverted.getTime(_currentIndex!);
       print(getTime + " " + getDay + " " + getDate);
-      controller.bookAppointment(widget.docID, widget.docName, getDate, getDay,
-          getTime, context, provider.value);
+
+      controller.bookAppointment(
+          widget.docID, widget.docName, getDate, getDay, getTime, context);
     }
+    // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>))
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -413,7 +415,7 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
                   await _openCheckout();
                 } else {
                   await controller.bookAppointment(widget.docID, widget.docName,
-                      getDate, getDay, getTime, context, provider.value);
+                      getDate, getDay, getTime, context);
                 }
               },
               child: Padding(
