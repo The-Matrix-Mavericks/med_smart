@@ -55,9 +55,12 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
 
   late Razorpay _razorpay;
   var controller = Get.put(AppointmentController());
+  
   @override
   void initState() {
     super.initState();
+    
+    
     _razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -442,10 +445,11 @@ class _BookAppointmentVIewState extends State<BookAppointmentVIew> {
   }
 
   Widget _tableCalendar() {
+    DateTime now = DateTime.now();
     return TableCalendar(
       focusedDay: _focusDay,
       firstDay: DateTime.now(),
-      lastDay: DateTime(2024, 12, 31),
+      lastDay: DateTime(now.year, now.month, now.day+15),
       calendarFormat: _format,
       currentDay: _currentDay,
       rowHeight: 48,
