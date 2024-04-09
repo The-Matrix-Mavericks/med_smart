@@ -19,6 +19,7 @@ import 'package:flutter_samples/samples/ui/rive_app/components/vcard.dart';
 import 'package:flutter_samples/samples/ui/rive_app/home.dart';
 import 'package:flutter_samples/samples/ui/rive_app/models/courses.dart';
 import 'package:flutter_samples/samples/ui/rive_app/navigation/feedback_screen.dart';
+import 'package:flutter_samples/samples/ui/rive_app/navigation/helpline_page.dart';
 import 'package:flutter_samples/samples/ui/rive_app/theme.dart';
 import 'package:flutter_samples/screens/appointment/appointment.dart';
 import 'package:flutter_samples/screens/doctor_map/doctor_map.dart';
@@ -94,6 +95,7 @@ class _HomeTabViewState extends State<HomeTabView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               HomeTopCard(),
+              
               TitleView(
                 titleTxt: 'Our Services',
                 subTxt: 'More',
@@ -227,7 +229,8 @@ class _HomeTabViewState extends State<HomeTabView> {
     'AI Doc',
     'Nearby Docs',
     // 'Community',
-    'Feedback',
+    // 'Feedback',
+    'Helplines',
   ];
 
   List<Widget> menuRoutes = [
@@ -236,8 +239,9 @@ class _HomeTabViewState extends State<HomeTabView> {
     Assessment(),
     MedAIHomePage(),
     DoctorMap(),
-    FeedbackScreen(),
+    // FeedbackScreen(),
     // HomeTabView(),
+    HelplinePage(),
   ];
 
   List<Widget> nextScreens = [

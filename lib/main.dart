@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
     return Provider<GlobalBloc>.value(
         value: globalBloc!,
         child: Sizer(builder: (context, orientation, deviceType) {
+<<<<<<< HEAD
           return ChangeNotifierProvider(
             create: (context) => PaymentMethod(),
             child: GetMaterialApp(
@@ -75,6 +76,25 @@ class _MyAppState extends State<MyApp> {
               // ),
               home: SplashScreen(),
             ),
+=======
+          return GetMaterialApp(
+            title: 'Med Smart',
+            // theme: ThemeData(
+            //   primarySwatch: Colors.blue,
+            // ),
+            debugShowCheckedModeBanner: false,
+            theme: Themes.light,
+            darkTheme: Themes.dark,
+            routes: {
+              RiveAppHome.route: (context) => const RiveAppHome(),
+            },
+            // home: SamplesListView(
+            //   title: "Flutter Samples",
+            //   backEnabled: false,
+            //   listData: SampleData.sampleTypes,
+            // ),
+            home: SplashScreen(),
+>>>>>>> 344e6ae2c368234e5a1bf8aa570614767a76e73f
           );
         }));
   }

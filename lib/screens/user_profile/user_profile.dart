@@ -7,6 +7,8 @@ import 'package:flutter_samples/samples/ui/rive_app/login_signup/onboarding/onbo
 import 'package:flutter_samples/screens/user_profile/medical_form.dart';
 import 'package:flutter_samples/screens/user_profile/medical_status.dart';
 import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../diseases/disease_home.dart';
 import './avatar.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -287,25 +289,35 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Card(
-                    color: Colors.blue[50],
-                    margin:
-                        const EdgeInsets.only(left: 35, right: 35, bottom: 5),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const ListTile(
-                      leading: Icon(
-                        Icons.history,
-                        color: Colors.black54,
-                      ),
-                      title: Text(
-                        'Purchase History',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        color: Colors.black54,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DiseaseHomePage(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      color: Colors.blue[50],
+                      margin:
+                          const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const ListTile(
+                        leading: Icon(
+                          FontAwesomeIcons.kitMedical,
+                          color: Colors.black54,
+                        ),
+                        title: Text(
+                          'Common Diseases',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black54,
+                        ),
                       ),
                     ),
                   ),
