@@ -13,6 +13,7 @@
 #include <permission_handler_windows/permission_handler_windows_plugin.h>
 #include <rive_common/rive_plugin.h>
 #include <simple_animation_progress_bar/simple_animation_progress_bar_plugin_c_api.h>
+#include <url_launcher_windows/url_launcher_windows.h>
 #include <zego_express_engine/zego_express_engine_plugin.h>
 #include <zego_zim/zego_zim_plugin.h>
 
@@ -31,6 +32,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("RivePlugin"));
   SimpleAnimationProgressBarPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("SimpleAnimationProgressBarPluginCApi"));
+  UrlLauncherWindowsRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("UrlLauncherWindows"));
   ZegoExpressEnginePluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ZegoExpressEnginePlugin"));
   ZegoZimPluginRegisterWithRegistrar(

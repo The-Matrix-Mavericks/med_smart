@@ -10,6 +10,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   permission_handler_windows
   rive_common
   simple_animation_progress_bar
+  url_launcher_windows
   zego_express_engine
   zego_zim
 )
